@@ -7,10 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Finanza\" />
-    <Folder Include="Seguridad\" />
-    <Folder Include="Reporte\" />
-    <Folder Include="Transaccion\" />
+    <Compile Remove="Finanza\**" />
+    <Compile Remove="Reporte\**" />
+    <Compile Remove="Seguridad\**" />
+    <Compile Remove="Transaccion\**" />
+    <EmbeddedResource Remove="Finanza\**" />
+    <EmbeddedResource Remove="Reporte\**" />
+    <EmbeddedResource Remove="Seguridad\**" />
+    <EmbeddedResource Remove="Transaccion\**" />
+    <None Remove="Finanza\**" />
+    <None Remove="Reporte\**" />
+    <None Remove="Seguridad\**" />
+    <None Remove="Transaccion\**" />
   </ItemGroup>
 
 </Project>
