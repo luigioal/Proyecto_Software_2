@@ -10,7 +10,6 @@
     <Folder Include="Connectors\" />
     <Folder Include="Finanza\" />
     <Folder Include="Reporte\" />
-    <Folder Include="Usuario\" />
     <Folder Include="Seguridad\" />
     <Folder Include="Transaccion\" />
   </ItemGroup>

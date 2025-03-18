@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CRUD\" />
-    <Folder Include="DAO\" />
-    <Folder Include="MAPPER\" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
