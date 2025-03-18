@@ -14,19 +14,6 @@ namespace Proyecto_Software_2
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            //CORS
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy(name: "MyPolicy",
-
-                    policy =>
-                    {
-                        policy.AllowAnyHeader();
-                        policy.AllowAnyMethod();
-                        policy.AllowAnyOrigin();
-                    });
-            });
-
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -38,7 +25,6 @@ namespace Proyecto_Software_2
 
             app.UseAuthorization();
 
-            app.UseCors("MyPolicy");
 
             app.MapControllers();
 
