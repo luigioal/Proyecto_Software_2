@@ -13,7 +13,7 @@ namespace Proyecto_Software_2.Controllers
     public class UsuarioController : ControllerBase
     {
         [HttpPost]
-        public Usuario GetUsuarioByEmail(string email)
+        public Usuario BuscarUsuarioPorEmail(string email)
         {
             UsuarioAdmin admin = new UsuarioAdmin();
             return admin.ReturnUsuarioByEmail(email);

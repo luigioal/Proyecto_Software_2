@@ -17,6 +17,7 @@ namespace DataAccess.MAPPERS
 
         public SqlOperation GetRetrieveByEmailQuery(string email)
         {
+            //@Email NVARCHAR(255)
             SqlOperation operation = new SqlOperation();
             operation.procedureName = "SP_SELECT_USER_BY_EMAIL";
             operation.AddVarcharParameter("Email", email);
@@ -25,27 +26,39 @@ namespace DataAccess.MAPPERS
             return operation;
         }
 
-        
 
+        //Actualizado para manejar datos que son null y evitar errores en runtime. 
         public BaseClass MapObject(Dictionary<string, object> objectRow)
         {
             Usuario usuario = new Usuario();
-            usuario.Id = int.Parse(objectRow["Id"].ToString());
+            usuario.Id = Convert.ToInt32(objectRow["Id"]);
+            usuario.Tipo = objectRow["Tipo"].ToString();
             usuario.Nombre = objectRow["Nombre"].ToString();
             usuario.PrimerApellido = objectRow["PrimerApellido"].ToString();
-            usuario.PrimerApellido = objectRow["SegundoApellido"].ToString();
+            usuario.SegundoApellido = objectRow["SegundoApellido"].ToString();
+
+            // required DateTime 
             usuario.FechaNacimiento = DateTime.Parse(objectRow["FechaNacimiento"].ToString());
+
             usuario.CorreoElectronico = objectRow["CorreoElectronico"].ToString();
             usuario.Direccion = objectRow["Direccion"].ToString();
             usuario.FotoPerfil = objectRow["FotoPerfil"].ToString();
             usuario.Contrasena = objectRow["Contrasena"].ToString();
             usuario.Estado = Boolean.Parse(objectRow["Estado"].ToString());
             usuario.FechaRegistro = DateTime.Parse(objectRow["FechaRegistro"].ToString());
-            usuario.UltimoAcceso = DateTime.Parse(objectRow["UltimoAcceso"].ToString());
-            
+
+            // nullable DateTime - check if the value exists before parsing
+            var ultimoAccesoValue = objectRow["UltimoAcceso"];
+            if (ultimoAccesoValue != null && ultimoAccesoValue != DBNull.Value && !string.IsNullOrEmpty(ultimoAccesoValue.ToString()))
+            {
+                usuario.UltimoAcceso = DateTime.Parse(ultimoAccesoValue.ToString());
+            }
+            else
+            {
+                usuario.UltimoAcceso = null;
+            }
 
             return usuario;
-
         }
 
         public List<BaseClass> MapObjectList(List<Dictionary<string, object>> objectList)
