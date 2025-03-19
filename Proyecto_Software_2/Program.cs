@@ -14,6 +14,21 @@ namespace Proyecto_Software_2
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            // Registrar Notificador
+            builder.Services.AddSingleton<AppLogic.SeguridadAdmin.Notificador>(sp =>
+                new AppLogic.SeguridadAdmin.Notificador(
+                    smtpServer: builder.Configuration["EmailSettings:SmtpServer"] ?? "smtp.gmail.com",
+                    smtpPort: int.Parse(builder.Configuration["EmailSettings:SmtpPort"] ?? "587"),
+                    fromEmail: builder.Configuration["EmailSettings:FromEmail"] ?? "yourapplication@example.com",
+                    username: builder.Configuration["EmailSettings:Username"] ?? "",
+                    password: builder.Configuration["EmailSettings:Password"] ?? "",
+                    useSsl: bool.Parse(builder.Configuration["EmailSettings:UseSsl"] ?? "true")
+                )
+            );
+
+            // Registrar SeguridadAdmin
+            builder.Services.AddSingleton<AppLogic.SeguridadAdmin.SeguridadAdmin>();
+
             //CORS
             builder.Services.AddCors(options =>
             {

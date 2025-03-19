@@ -47,7 +47,7 @@ namespace DataAccess.MAPPERS
             usuario.Estado = Boolean.Parse(objectRow["Estado"].ToString());
             usuario.FechaRegistro = DateTime.Parse(objectRow["FechaRegistro"].ToString());
 
-            // nullable DateTime - check if the value exists before parsing
+            // nullable DateTime 
             var ultimoAccesoValue = objectRow["UltimoAcceso"];
             if (ultimoAccesoValue != null && ultimoAccesoValue != DBNull.Value && !string.IsNullOrEmpty(ultimoAccesoValue.ToString()))
             {

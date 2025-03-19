@@ -10,7 +10,6 @@
     <Folder Include="ConnectorsAdmin\" />
     <Folder Include="FinanzaAdmin\" />
     <Folder Include="ReporteAdmin\" />
-    <Folder Include="SeguridadAdmin\" />
     <Folder Include="TransaccionAdmin\" />
   </ItemGroup>
 
