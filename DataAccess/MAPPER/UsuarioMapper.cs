@@ -31,7 +31,7 @@ namespace DataAccess.MAPPERS
         {
             Usuario usuario = new Usuario();
             usuario.Id = int.Parse(objectRow["Id"].ToString());
-            //usuario.EmployeeId = int.Parse(objectRow["EmployeeId"].ToString());
+            usuario.Nombre = objectRow["Nombre"].ToString();
             //usuario.StartDay = DateTime.Parse(objectRow["StartDay"].ToString());
             //usuario.EndDay = DateTime.Parse(objectRow["EndDay"].ToString());
             //usuario.Justification = objectRow["Justification"].ToString();
