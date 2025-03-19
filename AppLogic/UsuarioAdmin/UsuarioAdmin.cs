@@ -21,5 +21,12 @@ namespace AppLogic.UsuarioAdmin
         {
             return _usuarioCrud.RetrieveByEmail<Usuario>(email);
         }
+
+        public List<Asesor> ObtenerAsesores()
+        {
+            List<Asesor> asesores = new List<Asesor>();
+
+            return asesores;
+        }
     }
 }

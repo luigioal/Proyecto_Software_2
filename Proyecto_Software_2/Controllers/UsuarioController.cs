@@ -12,11 +12,19 @@ namespace Proyecto_Software_2.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
+        private UsuarioAdmin _admin;
+        
         [HttpPost]
         public Usuario GetVacationByEmail(string email)
         {
             UsuarioAdmin admin = new UsuarioAdmin();
             return admin.ReturnVacationByEmail(email);
+        }
+
+        [HttpGet]
+        public List<Asesor> ObtenerAsesores()
+        {
+            return _admin.ObtenerAsesores();
         }
     }
 }
