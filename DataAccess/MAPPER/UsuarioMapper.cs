@@ -32,10 +32,17 @@ namespace DataAccess.MAPPERS
             Usuario usuario = new Usuario();
             usuario.Id = int.Parse(objectRow["Id"].ToString());
             usuario.Nombre = objectRow["Nombre"].ToString();
-            //usuario.StartDay = DateTime.Parse(objectRow["StartDay"].ToString());
-            //usuario.EndDay = DateTime.Parse(objectRow["EndDay"].ToString());
-            //usuario.Justification = objectRow["Justification"].ToString();
-            //usuario.isActive = Boolean.Parse(objectRow["Active"].ToString());
+            usuario.PrimerApellido = objectRow["PrimerApellido"].ToString();
+            usuario.PrimerApellido = objectRow["SegundoApellido"].ToString();
+            usuario.FechaNacimiento = DateTime.Parse(objectRow["FechaNacimiento"].ToString());
+            usuario.CorreoElectronico = objectRow["CorreoElectronico"].ToString();
+            usuario.Direccion = objectRow["Direccion"].ToString();
+            usuario.FotoPerfil = objectRow["FotoPerfil"].ToString();
+            usuario.Contrasena = objectRow["Contrasena"].ToString();
+            usuario.Estado = Boolean.Parse(objectRow["Estado"].ToString());
+            usuario.FechaRegistro = DateTime.Parse(objectRow["FechaRegistro"].ToString());
+            usuario.UltimoAcceso = DateTime.Parse(objectRow["UltimoAcceso"].ToString());
+            
 
             return usuario;
 
