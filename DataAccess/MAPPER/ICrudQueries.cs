@@ -14,6 +14,7 @@ namespace DataAccess.MAPPERS
         //SqlOperation GetUpdateQuery(BaseClass entity);
         //SqlOperation GetDeleteQuery(int Id);
         //SqlOperation GetRetrieveAllQuery();
+        //SqlOperation GetRetrieveByIdQuery(string email);
         SqlOperation GetRetrieveByEmailQuery(string email);
     }
 }
