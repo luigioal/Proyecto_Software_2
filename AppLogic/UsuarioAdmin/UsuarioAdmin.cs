@@ -17,7 +17,7 @@ namespace AppLogic.UsuarioAdmin
             _usuarioCrud = new UsuarioCrud();
         }
 
-        public Usuario ReturnVacationByEmail(string email)
+        public Usuario ReturnUsuarioByEmail(string email)
         {
             return _usuarioCrud.RetrieveByEmail<Usuario>(email);
         }

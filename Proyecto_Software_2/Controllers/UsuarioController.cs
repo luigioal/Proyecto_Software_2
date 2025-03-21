@@ -15,10 +15,10 @@ namespace Proyecto_Software_2.Controllers
         private UsuarioAdmin _admin;
         
         [HttpPost]
-        public Usuario GetVacationByEmail(string email)
+        public Usuario BuscarUsuarioPorEmail(string email)
         {
             UsuarioAdmin admin = new UsuarioAdmin();
-            return admin.ReturnVacationByEmail(email);
+            return admin.ReturnUsuarioByEmail(email);
         }
 
         [HttpGet]
