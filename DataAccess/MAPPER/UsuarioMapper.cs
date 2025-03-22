@@ -11,9 +11,13 @@ namespace DataAccess.MAPPERS
 {
     public class UsuarioMapper : ICrudQueries, IObjectMapper
     {
-        
+        public SqlOperation GetRetrieveAllQuery()
+        {
+            SqlOperation operation = new SqlOperation();
+            operation.procedureName = "SP_SELECT_ALL_USERS";
 
-       
+            return operation;
+        }
 
         public SqlOperation GetRetrieveByEmailQuery(string email)
         {

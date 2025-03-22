@@ -9,8 +9,8 @@ namespace DTO.UsuarioDTO
     public class Usuario : BaseClass
     {
         public string Tipo{ get; set; }
-        public int IdAdmin { get; set; }
-        public int IdAsesor { get; set; }
+        public int? IdAdmin { get; set; }
+        public int? IdAsesor { get; set; }
         public string Nombre { get; set; }
         public string PrimerApellido { get; set; }
         public string? SegundoApellido { get; set; }
@@ -20,7 +20,7 @@ namespace DTO.UsuarioDTO
         public string? FotoPerfil { get; set; }
         public string? DocumentoContrato { get; set; }
         public string Contrasena { get; set; }
-        public double Balance { get; set; }
+        public double? Saldo { get; set; }
         public bool Estado { get; set; }
         public DateTime FechaRegistro { get; set; }
         public DateTime? UltimoAcceso { get; set; }
