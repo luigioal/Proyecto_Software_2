@@ -36,7 +36,7 @@ namespace AppLogic.UsuarioAdmin
         {
             List<Usuario> asesores;
 
-            asesores = _usuarioCrud.RetrieveAll<Usuario>();
+            asesores = _usuarioCrud.RetrieveAll<Usuario>(idAdmin);
 
             return asesores;
         }
@@ -45,7 +45,7 @@ namespace AppLogic.UsuarioAdmin
         {
             List<Usuario> clientes;
 
-            clientes = _usuarioCrud.RetrieveAll<Usuario>();
+            clientes = _usuarioCrud.RetrieveAll<Usuario>(idAsesor);
 
 
             return clientes;
