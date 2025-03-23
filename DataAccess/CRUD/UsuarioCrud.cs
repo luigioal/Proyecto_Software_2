@@ -39,10 +39,10 @@ namespace DataAccess.CRUD
             return list;
         }
 
-        public List<T> RetrieveAll<T>(string tipo, int idSuper)
+        public List<T> RetrieveAll<T>(int idSuper)
         {
             List<T> list = new List<T>();
-            SqlOperation operation = mapper.GetRetrieveAllQuery();
+            SqlOperation operation = mapper.GetRetrieveAllQuery(idSuper);
 
             List<Dictionary<string, object>> dataResults = dao.ExecuteStoredProcedureWithQuery(operation);
 

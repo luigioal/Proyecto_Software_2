@@ -19,6 +19,15 @@ namespace DataAccess.MAPPERS
             return operation;
         }
 
+        public SqlOperation GetRetrieveAllQuery(int idSuper)
+        {
+            SqlOperation operation = new SqlOperation();
+            operation.procedureName = "SP_SELECT_ALL_USERS_BY_SUPER";//Deberia devolver los usuarios con un supervisor asociado(Admin o Asesor) suministrado
+            operation.AddIntegerParameter("IdSuper", idSuper);
+
+            return operation;
+        }
+
         public SqlOperation GetRetrieveByEmailQuery(string email)
         {
             //@Email NVARCHAR(255)
@@ -30,13 +39,28 @@ namespace DataAccess.MAPPERS
             return operation;
         }
 
-
         //Actualizado para manejar datos que son null y evitar errores en runtime. 
         public BaseClass MapObject(Dictionary<string, object> objectRow)
         {
             Usuario usuario = new Usuario();
-            usuario.Id = Convert.ToInt32(objectRow["Id"]);
+            usuario.Id = Convert.ToInt32(objectRow["UsuarioID"]);
             usuario.Tipo = objectRow["Tipo"].ToString();
+            Console.Write(objectRow);
+            if(usuario.Tipo == "cliente")
+            {
+                usuario.IdAsesor = Convert.ToInt32(objectRow["IdRelacionado"].ToString());
+                usuario.IdAdmin = null;
+            }
+            if (usuario.Tipo == "asesor")
+            {
+                usuario.IdAdmin = Convert.ToInt32(objectRow["IdRelacionado"].ToString());
+                usuario.IdAsesor = null;
+            }
+            else
+            {
+                usuario.IdAdmin = null;
+                usuario.IdAsesor = null;
+            }
             usuario.Nombre = objectRow["Nombre"].ToString();
             usuario.PrimerApellido = objectRow["PrimerApellido"].ToString();
             usuario.SegundoApellido = objectRow["SegundoApellido"].ToString();
@@ -47,7 +71,16 @@ namespace DataAccess.MAPPERS
             usuario.CorreoElectronico = objectRow["CorreoElectronico"].ToString();
             usuario.Direccion = objectRow["Direccion"].ToString();
             usuario.FotoPerfil = objectRow["FotoPerfil"].ToString();
-            usuario.Contrasena = objectRow["Contrasena"].ToString();
+            usuario.DocumentoContrato = objectRow["RutaContrato"].ToString();
+            usuario.Contrasena = null;
+            if (usuario.Tipo == "cliente")
+            {
+                usuario.Saldo = Convert.ToDouble(objectRow["Saldo"]);
+            }
+            else
+            {
+                usuario.Saldo = null;
+            }
             usuario.Estado = Boolean.Parse(objectRow["Estado"].ToString());
             usuario.FechaRegistro = DateTime.Parse(objectRow["FechaRegistro"].ToString());
 
@@ -75,8 +108,6 @@ namespace DataAccess.MAPPERS
                     var usuario = MapObject(objectRow);
                     list.Add(usuario);
                 }
-
-
             }
             return list;
         }
