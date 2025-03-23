@@ -13,18 +13,28 @@ namespace Proyecto_Software_2.Controllers
     public class UsuarioController : ControllerBase
     {
         private UsuarioAdmin _admin;
+
+        public UsuarioController()
+        {
+            _admin = new UsuarioAdmin();
+        }
         
         [HttpPost]
         public Usuario BuscarUsuarioPorEmail(string email)
         {
-            UsuarioAdmin admin = new UsuarioAdmin();
-            return admin.ReturnUsuarioByEmail(email);
+            
+            return _admin.ReturnUsuarioByEmail(email);
         }
 
         [HttpGet]
-        public List<Asesor> ObtenerAsesores()
+        public List<Usuario> ObtenerUsuarios()
         {
-            return _admin.ObtenerAsesores();
+            List<Usuario> usuarios = new List<Usuario>();
+            usuarios = _admin.ReturnObtenerUsuarios();
+            return usuarios;
         }
+
+
+
     }
 }
