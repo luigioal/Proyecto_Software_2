@@ -22,7 +22,7 @@ namespace AppLogic.UsuarioAdmin
             return _usuarioCrud.RetrieveByEmail<Usuario>(email);
         }
 
-        public List<Usuario> ReturnObtenerUsuarios()
+        public List<Usuario> ReturnUsuarios()
         {
             List<Usuario> usuarios;
 
