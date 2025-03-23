@@ -31,5 +31,24 @@ namespace AppLogic.UsuarioAdmin
 
             return usuarios;
         }
+
+        public List<Usuario> ReturnAsesoresPorAdmin(int idAdmin)
+        {
+            List<Usuario> asesores;
+
+            asesores = _usuarioCrud.RetrieveAll<Usuario>();
+
+            return asesores;
+        }
+
+        public List<Usuario> ReturnClientesPorAsesor(int idAsesor)
+        {
+            List<Usuario> clientes;
+
+            clientes = _usuarioCrud.RetrieveAll<Usuario>();
+
+
+            return clientes;
+        }
     }
 }
