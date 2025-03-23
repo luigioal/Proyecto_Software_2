@@ -29,12 +29,21 @@ namespace Proyecto_Software_2.Controllers
         [HttpGet]
         public List<Usuario> ObtenerUsuarios()
         {
-            List<Usuario> usuarios = new List<Usuario>();
-            usuarios = _admin.ReturnObtenerUsuarios();
-            return usuarios;
+            return _admin.ReturnObtenerUsuarios();
         }
 
+        [HttpGet]
+        public List<Usuario> ObtenerAsesoresPorAdmin(int idAdmin)
+        {
 
+            return _admin.ReturnAsesoresPorAdmin(idAdmin);
+        }
+
+        [HttpGet]
+        public List<Usuario> ObtenerClientesPorAsesor(int idAsesor)
+        {
+            return _admin.ReturnClientesPorAsesor(idAsesor);
+        }
 
     }
 }
