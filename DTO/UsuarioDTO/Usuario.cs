@@ -19,7 +19,7 @@ namespace DTO.UsuarioDTO
         public string? Direccion { get; set; }
         public string? FotoPerfil { get; set; }
         public string? DocumentoContrato { get; set; }
-        public string Contrasena { get; set; }
+        public string? Contrasena { get; set; }
         public double? Saldo { get; set; }
         public bool Estado { get; set; }
         public DateTime FechaRegistro { get; set; }
