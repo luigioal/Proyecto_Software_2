@@ -39,6 +39,25 @@ namespace DataAccess.CRUD
             return list;
         }
 
+        public List<T> RetrieveAll<T>(string tipo, int idSuper)
+        {
+            List<T> list = new List<T>();
+            SqlOperation operation = mapper.GetRetrieveAllQuery();
+
+            List<Dictionary<string, object>> dataResults = dao.ExecuteStoredProcedureWithQuery(operation);
+
+            if (dataResults.Count > 0)
+            {
+                var dtObjects = mapper.MapObjectList(dataResults);
+                foreach (var obj in dtObjects)
+                {
+                    list.Add((T)Convert.ChangeType(obj, typeof(T)));
+                }
+            }
+
+            return list;
+        }
+
         public override T RetrieveByEmail<T>(string email)
         {
             List<T> listResults = new List<T>();
