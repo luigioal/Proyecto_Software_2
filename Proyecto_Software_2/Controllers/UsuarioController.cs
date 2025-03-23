@@ -29,7 +29,7 @@ namespace Proyecto_Software_2.Controllers
         [HttpGet]
         public List<Usuario> ObtenerUsuarios()
         {
-            return _admin.ReturnObtenerUsuarios();
+            return _admin.ReturnUsuarios();
         }
 
         [HttpGet]
