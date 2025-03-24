@@ -22,7 +22,7 @@ namespace DataAccess.DAO
             // Fallback 
             if (string.IsNullOrEmpty(_connectionString))
             {
-                _connectionString = "Server=localhost; Database=DEMO; Trusted_Connection=True; TrustServerCertificate=true";
+                _connectionString = "Server=localhost; Database=Proyecto_Software_2; Trusted_Connection=True; TrustServerCertificate=true";
                 Console.WriteLine("Warning: Using default connection string. Set DB_CONNECTION_STRING environment variable for production.");
             }
         }
