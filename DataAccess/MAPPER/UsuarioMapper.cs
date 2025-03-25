@@ -35,7 +35,6 @@ namespace DataAccess.MAPPERS
             operation.procedureName = "SP_SELECT_USER_BY_EMAIL";
             operation.AddVarcharParameter("Email", email);
 
-
             return operation;
         }
 
@@ -44,23 +43,17 @@ namespace DataAccess.MAPPERS
         {
             Usuario usuario = new Usuario();
             usuario.Id = Convert.ToInt32(objectRow["UsuarioID"]);
-            usuario.Tipo = objectRow["Tipo"].ToString();
+            usuario.Roles = new List<string> { objectRow["Tipo"].ToString() };
             Console.Write(objectRow);
             if(usuario.Tipo == "cliente")
             {
-                usuario.IdAsesor = Convert.ToInt32(objectRow["IdRelacionado"].ToString());
-                usuario.IdAdmin = null;
+                usuario.IdSupervisor = Convert.ToInt32(objectRow["IdRelacionado"].ToString());
             }
             if (usuario.Tipo == "asesor")
             {
-                usuario.IdAdmin = Convert.ToInt32(objectRow["IdRelacionado"].ToString());
-                usuario.IdAsesor = null;
+                usuario.IdSupervisor = Convert.ToInt32(objectRow["IdRelacionado"].ToString());
             }
-            else
-            {
-                usuario.IdAdmin = null;
-                usuario.IdAsesor = null;
-            }
+
             usuario.Nombre = objectRow["Nombre"].ToString();
             usuario.PrimerApellido = objectRow["PrimerApellido"].ToString();
             usuario.SegundoApellido = objectRow["SegundoApellido"].ToString();
