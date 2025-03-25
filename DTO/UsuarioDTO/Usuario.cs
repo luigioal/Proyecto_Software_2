@@ -9,8 +9,8 @@ namespace DTO.UsuarioDTO
     public class Usuario : BaseClass
     {
         public string Tipo{ get; set; }
-        public int? IdAdmin { get; set; }
-        public int? IdAsesor { get; set; }
+        public int? IdSupervisor { get; set; }
+        public List<String> Roles { get; set; }
         public string Nombre { get; set; }
         public string PrimerApellido { get; set; }
         public string? SegundoApellido { get; set; }
