@@ -18,7 +18,8 @@ namespace Proyecto_Software_2.Controllers
         {
             _admin = new UsuarioAdmin();
         }
-        
+
+
         [HttpPost]
         public Usuario BuscarUsuarioPorEmail(string email)
         {
