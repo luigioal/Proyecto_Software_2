@@ -17,7 +17,7 @@ namespace DTO.UsuarioDTO
         public string? Direccion { get; set; }
         public string? FotoPerfil { get; set; }
         public string Contrasena { get; set; }
-        public bool Estado { get; set; }
+        public bool Estado { get; set; } = false; //El predeterminado deberia ser False
         public DateTime FechaRegistro { get; set; }
         public DateTime? UltimoAcceso { get; set; }
     }
