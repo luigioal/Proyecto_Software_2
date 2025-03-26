@@ -24,13 +24,13 @@ namespace DataAccess.CRUD
         public override void Create(BaseClass entity)
         {
             SqlOperation operation = mapper.GetCreateQuery(entity);
-            dao.ExecuteStoredProcedure(operation);
+            dao.ExcecuteStoredProcedure(operation);
         }
 
         public override void Delete(int Id)
         {
             SqlOperation operation = mapper.GetDeleteQuery(Id);
-            dao.ExecuteStoredProcedure(operation);
+            dao.ExcecuteStoredProcedure(operation);
         }
 
         public override List<T> RetrieveAll<T>()
