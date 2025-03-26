@@ -46,5 +46,55 @@ namespace Proyecto_Software_2.Controllers
             return _admin.ReturnClientesPorAsesor(idAsesor);
         }
 
+        [HttpGet]
+        public Usuario ObtenerUsuario(int idUsuario)
+        {
+            return _admin.ReturnUsuarioById(idUsuario);
+        }
+
+        [HttpPost]
+        public IActionResult CrearUsuario([FromBody] Usuario usuario)
+        {
+            try
+            {
+                _admin.CreateUsuario(usuario);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public IActionResult ModificarUsuario([FromBody] Usuario usuario)
+        {
+            try
+            {
+                _admin.UpdateUsuario(usuario);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        public IActionResult EliminarUsuario(int idUsuario)
+        {
+            try
+            {
+                _admin.DeleteUsuario(idUsuario);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
     }
 }
