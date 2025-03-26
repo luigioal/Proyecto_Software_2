@@ -20,6 +20,12 @@ namespace DataAccess.CRUD
         
         }
 
+        public override void Delete(int Id)
+        {
+            SqlOperation operation = mapper.GetDeleteQuery(Id);
+            dao.ExecuteStoredProcedure(operation);
+        }
+
         public override List<T> RetrieveAll<T>()
         {
             List<T> list = new List<T>();
@@ -71,7 +77,12 @@ namespace DataAccess.CRUD
             return (T)Convert.ChangeType(obj, typeof(T));
         }
 
-
-
+        public override void Update(BaseClass entity)
+        {
+            // Get the Operation object from the mapper instance
+            SqlOperation operation = _mapper.GetUpdateQuery(entity);
+            // Ask the DAO to perform the operation in the 
+            dao.ExecuteStoredProcedureWithQuery(operation);
+        }
     }
 }
