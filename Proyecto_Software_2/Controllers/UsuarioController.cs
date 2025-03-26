@@ -24,7 +24,9 @@ namespace Proyecto_Software_2.Controllers
         public Usuario BuscarUsuarioPorEmail(string email)
         {
             
-            return _admin.ReturnUsuarioByEmail(email);
+            UsuarioAdmin admin = new UsuarioAdmin();
+            return admin.ReturnUsuarioByEmail(email);
+            
         }
 
         [HttpGet]
@@ -95,6 +97,20 @@ namespace Proyecto_Software_2.Controllers
         }
 
 
+
+        [HttpPost]
+        public Boolean ValidarUsuario(string email, string contrasena)
+        {
+            UsuarioAdmin admin = new UsuarioAdmin();
+            var usuario = admin.ReturnUsuarioByEmail(email);
+
+            if (usuario != null && usuario.Contrasena == contrasena && usuario.Estado == true)
+            {
+                return true;
+            }
+
+            return false;
+        }
 
     }
 }

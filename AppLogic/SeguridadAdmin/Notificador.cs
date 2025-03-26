@@ -96,6 +96,8 @@ namespace AppLogic.SeguridadAdmin
             return await EnviarNotificacionAsync(notificacion);
         }
 
+
+
         // Mantener el método antiguo para compatibilidad
         public async Task EnviarCorreoAsync(string destinatario, string asunto, string cuerpo, bool esHtml = true)
         {
