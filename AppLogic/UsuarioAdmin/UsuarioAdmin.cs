@@ -21,5 +21,34 @@ namespace AppLogic.UsuarioAdmin
         {
             return _usuarioCrud.RetrieveByEmail<Usuario>(email);
         }
+
+        public List<Usuario> ReturnUsuarios()
+        {
+            List<Usuario> usuarios;
+
+            usuarios = _usuarioCrud.RetrieveAll<Usuario>();
+
+
+            return usuarios;
+        }
+
+        public List<Usuario> ReturnAsesoresPorAdmin(int idAdmin)
+        {
+            List<Usuario> asesores;
+
+            asesores = _usuarioCrud.RetrieveAll<Usuario>(idAdmin);
+
+            return asesores;
+        }
+
+        public List<Usuario> ReturnClientesPorAsesor(int idAsesor)
+        {
+            List<Usuario> clientes;
+
+            clientes = _usuarioCrud.RetrieveAll<Usuario>(idAsesor);
+
+
+            return clientes;
+        }
     }
 }

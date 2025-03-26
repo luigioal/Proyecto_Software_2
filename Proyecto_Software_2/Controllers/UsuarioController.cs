@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using DTO.UsuarioDTO;
 using AppLogic.UsuarioAdmin;
-using DTO;
 
 namespace Proyecto_Software_2.Controllers
 {
@@ -13,12 +12,39 @@ namespace Proyecto_Software_2.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
+        private UsuarioAdmin _admin;
+
+        public UsuarioController()
+        {
+            _admin = new UsuarioAdmin();
+        }
+        
         [HttpPost]
         public Usuario BuscarUsuarioPorEmail(string email)
         {
             
             UsuarioAdmin admin = new UsuarioAdmin();
             return admin.ReturnUsuarioByEmail(email);
+            
+        }
+
+        [HttpGet]
+        public List<Usuario> ObtenerUsuarios()
+        {
+            return _admin.ReturnUsuarios();
+        }
+
+        [HttpGet]
+        public List<Usuario> ObtenerAsesoresPorAdmin(int idAdmin)
+        {
+
+            return _admin.ReturnAsesoresPorAdmin(idAdmin);
+        }
+
+        [HttpGet]
+        public List<Usuario> ObtenerClientesPorAsesor(int idAsesor)
+        {
+            return _admin.ReturnClientesPorAsesor(idAsesor);
         }
 
         [HttpPost]
@@ -34,5 +60,6 @@ namespace Proyecto_Software_2.Controllers
 
             return false;
         }
+
     }
 }
