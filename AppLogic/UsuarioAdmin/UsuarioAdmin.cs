@@ -50,5 +50,26 @@ namespace AppLogic.UsuarioAdmin
 
             return clientes;
         }
+
+        public Usuario ReturnUsuarioById(int idUsuario)
+        {
+            return _usuarioCrud.RetrieveById<Usuario>(idUsuario);
+        }
+
+        public void CreateUsuario(Usuario usuario)
+        {
+            _usuarioCrud.Create(usuario);
+
+        }
+
+        public void UpdateUsuario(Usuario usuario)
+        {
+            _usuarioCrud.Update(usuario);
+        }
+
+        public void DeleteUsuario(int id)
+        {
+            _usuarioCrud.Delete(id);
+        }
     }
 }
