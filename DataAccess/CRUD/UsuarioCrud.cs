@@ -1,6 +1,7 @@
 ﻿using DataAccess.DAO;
 using DataAccess.MAPPERS;
 using DTO;
+using DTO.UsuarioDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,12 @@ namespace DataAccess.CRUD
             mapper = new UsuarioMapper();
             dao = SqlDao.GetInstance();
         
+        }
+
+        public override void Create(BaseClass entity)
+        {
+            SqlOperation operation = mapper.GetCreateQuery(entity);
+            dao.ExecuteStoredProcedure(operation);
         }
 
         public override void Delete(int Id)
@@ -77,10 +84,24 @@ namespace DataAccess.CRUD
             return (T)Convert.ChangeType(obj, typeof(T));
         }
 
+        public override T RetrieveById<T>(int Id)
+        {
+            SqlOperation operation = mapper.GetRetrieveByIdQuery(Id);
+            var resultDTO = new Usuario();
+
+            List<Dictionary<string, object>> dataResults = dao.ExecuteStoredProcedureWithQuery(operation);
+            if (dataResults.Count > 0)
+            {
+                resultDTO = (Usuario)mapper.MapObject(dataResults[0]);
+            }
+
+            return (T)Convert.ChangeType(resultDTO, typeof(T));
+        }
+
         public override void Update(BaseClass entity)
         {
             // Get the Operation object from the mapper instance
-            SqlOperation operation = _mapper.GetUpdateQuery(entity);
+            SqlOperation operation = mapper.GetUpdateQuery(entity);
             // Ask the DAO to perform the operation in the 
             dao.ExecuteStoredProcedureWithQuery(operation);
         }
