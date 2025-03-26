@@ -67,6 +67,11 @@ namespace AppLogic.UsuarioAdmin
             _usuarioCrud.Update(usuario);
         }
 
+        public void UpdateRolDeUsuario(Usuario usuario)
+        {
+            _usuarioCrud.Update(usuario);
+        }
+
         public void DeleteUsuario(int id)
         {
             _usuarioCrud.Delete(id);
