@@ -18,9 +18,45 @@ namespace DataAccess.CRUD
             mapper = new UsuarioMapper();
             dao = SqlDao.GetInstance();
         
-        }  
+        }
 
-       
+        public override List<T> RetrieveAll<T>()
+        {
+            List<T> list = new List<T>();
+            SqlOperation operation = mapper.GetRetrieveAllQuery();
+
+            List<Dictionary<string, object>> dataResults = dao.ExecuteStoredProcedureWithQuery(operation);
+
+            if (dataResults.Count > 0)
+            {
+                var dtObjects = mapper.MapObjectList(dataResults);
+                foreach (var obj in dtObjects)
+                {
+                    list.Add((T)Convert.ChangeType(obj, typeof(T)));
+                }
+            }
+
+            return list;
+        }
+
+        public List<T> RetrieveAll<T>(int idSuper)
+        {
+            List<T> list = new List<T>();
+            SqlOperation operation = mapper.GetRetrieveAllQuery(idSuper);
+
+            List<Dictionary<string, object>> dataResults = dao.ExecuteStoredProcedureWithQuery(operation);
+
+            if (dataResults.Count > 0)
+            {
+                var dtObjects = mapper.MapObjectList(dataResults);
+                foreach (var obj in dtObjects)
+                {
+                    list.Add((T)Convert.ChangeType(obj, typeof(T)));
+                }
+            }
+
+            return list;
+        }
 
         public override T RetrieveByEmail<T>(string email)
         {
@@ -34,6 +70,7 @@ namespace DataAccess.CRUD
 
             return (T)Convert.ChangeType(obj, typeof(T));
         }
+
 
 
     }
