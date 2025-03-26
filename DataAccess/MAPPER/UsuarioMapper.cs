@@ -42,51 +42,85 @@ namespace DataAccess.MAPPERS
         public BaseClass MapObject(Dictionary<string, object> objectRow)
         {
             Usuario usuario = new Usuario();
-            usuario.Id = Convert.ToInt32(objectRow["UsuarioID"]);
-            usuario.Roles = new List<string> { objectRow["Tipo"].ToString() };
-            Console.Write(objectRow);
-            if(usuario.Tipo == "cliente")
+
+            
+            int? GetInt(string key)
             {
-                usuario.IdSupervisor = Convert.ToInt32(objectRow["IdRelacionado"].ToString());
-            }
-            if (usuario.Tipo == "asesor")
-            {
-                usuario.IdSupervisor = Convert.ToInt32(objectRow["IdRelacionado"].ToString());
+                if (!objectRow.ContainsKey(key) || objectRow[key] == null || objectRow[key] == DBNull.Value)
+                    return null;
+
+                try { return Convert.ToInt32(objectRow[key]); }
+                catch { return null; }
             }
 
-            usuario.Nombre = objectRow["Nombre"].ToString();
-            usuario.PrimerApellido = objectRow["PrimerApellido"].ToString();
-            usuario.SegundoApellido = objectRow["SegundoApellido"].ToString();
+            double? GetDouble(string key)
+            {
+                if (!objectRow.ContainsKey(key) || objectRow[key] == null || objectRow[key] == DBNull.Value)
+                    return null;
 
-            // required DateTime 
-            usuario.FechaNacimiento = DateTime.Parse(objectRow["FechaNacimiento"].ToString());
+                try { return Convert.ToDouble(objectRow[key]); }
+                catch { return null; }
+            }
 
-            usuario.CorreoElectronico = objectRow["CorreoElectronico"].ToString();
-            usuario.Direccion = objectRow["Direccion"].ToString();
-            usuario.FotoPerfil = objectRow["FotoPerfil"].ToString();
-            usuario.DocumentoContrato = objectRow["RutaContrato"].ToString();
-            usuario.Contrasena = null;
-            if (usuario.Tipo == "cliente")
+            bool? GetBool(string key)
             {
-                usuario.Saldo = Convert.ToDouble(objectRow["Saldo"]);
-            }
-            else
-            {
-                usuario.Saldo = null;
-            }
-            usuario.Estado = Boolean.Parse(objectRow["Estado"].ToString());
-            usuario.FechaRegistro = DateTime.Parse(objectRow["FechaRegistro"].ToString());
+                if (!objectRow.ContainsKey(key) || objectRow[key] == null || objectRow[key] == DBNull.Value)
+                    return null;
 
-            // nullable DateTime 
-            var ultimoAccesoValue = objectRow["UltimoAcceso"];
-            if (ultimoAccesoValue != null && ultimoAccesoValue != DBNull.Value && !string.IsNullOrEmpty(ultimoAccesoValue.ToString()))
-            {
-                usuario.UltimoAcceso = DateTime.Parse(ultimoAccesoValue.ToString());
+                try { return Convert.ToBoolean(objectRow[key]); }
+                catch { return null; }
             }
-            else
+
+            DateTime? GetDateTime(string key)
             {
-                usuario.UltimoAcceso = null;
+                if (!objectRow.ContainsKey(key) || objectRow[key] == null || objectRow[key] == DBNull.Value)
+                    return null;
+
+                try { return DateTime.Parse(objectRow[key].ToString()); }
+                catch { return null; }
             }
+
+            string? GetString(string key)
+            {
+                if (!objectRow.ContainsKey(key) || objectRow[key] == null || objectRow[key] == DBNull.Value)
+                    return null;
+
+                return objectRow[key].ToString();
+            }
+
+            
+            usuario.Id = GetInt("UsuarioID") ?? 0; // BaseClass.Id is required
+            usuario.Tipo = GetString("Tipo");
+
+            if (usuario.Tipo != null)
+                usuario.Roles = new List<string> { usuario.Tipo };
+
+            // IdSupervisor basado en Tipo
+            if (string.Equals(usuario.Tipo, "cliente", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(usuario.Tipo, "asesor", StringComparison.OrdinalIgnoreCase))
+            {
+                usuario.IdSupervisor = GetInt("IdRelacionado");
+            }
+
+            usuario.Nombre = GetString("Nombre");
+            usuario.PrimerApellido = GetString("PrimerApellido");
+            usuario.SegundoApellido = GetString("SegundoApellido");
+            usuario.FechaNacimiento = GetDateTime("FechaNacimiento");
+            usuario.CorreoElectronico = GetString("CorreoElectronico");
+            usuario.Direccion = GetString("Direccion");
+            usuario.FotoPerfil = GetString("FotoPerfil");
+            usuario.DocumentoContrato = GetString("RutaContrato");
+            usuario.Contrasena = GetString("Contrasena");
+
+            // Saldo basado en Tipo
+            if (string.Equals(usuario.Tipo, "cliente", StringComparison.OrdinalIgnoreCase))
+            {
+                usuario.Saldo = GetDouble("Saldo");
+            }
+
+            usuario.Estado = GetBool("Estado") ?? false;
+            usuario.FechaRegistro = GetDateTime("FechaRegistro");
+            usuario.UltimoAcceso = GetDateTime("UltimoAcceso");
 
             return usuario;
         }
