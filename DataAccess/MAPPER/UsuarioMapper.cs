@@ -147,6 +147,25 @@ namespace DataAccess.MAPPERS
             return operation;
         }
 
+        // Operation para servir la peticion del crud de activar/desactivar a un usuario indicado
+        public SqlOperation GetActivateDeactivateQuery(int idUsuario, bool nuevoEstado)
+        {
+            SqlOperation operation = new SqlOperation();
+
+            if (nuevoEstado)
+            {
+                operation.procedureName = "SP_ACTIVATE_USER";
+                operation.AddIntegerParameter("UsuarioID", idUsuario);
+                return operation;
+            }
+            else
+            {
+                operation.procedureName = "SP_DEACTIVATE_USER";
+                operation.AddIntegerParameter("UsuarioID", idUsuario);
+                return operation;
+            }
+        }
+
         // MAP OBJECT method 
         public BaseClass MapObject(Dictionary<string, object> objectRow)
         {
