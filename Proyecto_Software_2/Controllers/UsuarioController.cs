@@ -84,11 +84,11 @@ namespace Proyecto_Software_2.Controllers
         }
 
         [HttpPut]
-        public IActionResult ModificarRolesDeUsuario(int idUsuario, string rol)
+        public IActionResult ModificarRolesDeUsuario([FromQuery]int idUsuario, [FromQuery]string rol)
         {
             try
             {
-                _admin.UpdateRolDeUsuario(idUsuario, rol);
+                _admin.UpdateRolesDeUsuario(idUsuario, rol);
                 return Ok();
             }
             catch (Exception ex)
