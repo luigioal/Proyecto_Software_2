@@ -112,13 +112,8 @@ namespace DataAccess.CRUD
             // Get the Operation object from the mapper instance
             SqlOperation operation = mapper.GetUpdateRolQuery(idUsuario, rol);
             // Ask the DAO to perform the operation in the 
-            dao.ExecuteStoredProcedureWithQuery(operation);
-        }
-
-        public void ActivateDeactivate(int idUsuario, bool nuevoEstado)
-        {
-            SqlOperation operation = mapper.GetActivateDeactivateQuery(idUsuario, nuevoEstado);
-            dao.ExecuteStoredProcedureWithQuery(operation);
+            var resultado = dao.ExecuteStoredProcedureWithQuery(operation);
+            Console.WriteLine(resultado);
         }
     }
 }

@@ -22,12 +22,8 @@ namespace DataAccess.DAO
             // Fallback 
             if (string.IsNullOrEmpty(_connectionString))
             {
-                //DB Wilmer
-                _connectionString = "Server=tcp:employee-perks-wilmer-server.database.windows.net,1433;Initial Catalog=Proyecto_Software_2_DB;Persist Security Info=False;User ID=lavarus;Password=W.w72v8siFVP7..;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-                //DB Antonio
-                //_connectionString = "Server=tcp:employee-perks-antonio-server.database.windows.net,1433;Initial Catalog=Proyecto_Software_2_DB;Persist Security Info=False;User ID=EmployeePerksAdmin;Password=@0nc366WRGjy;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-                
-                //Console.WriteLine("Warning: Using default connection string. Set DB_CONNECTION_STRING environment variable for production.");
+                _connectionString = "Server=tcp:employee-perks-antonio-server.database.windows.net,1433;Initial Catalog=Proyecto_Software_2_DB;Persist Security Info=False;User ID=EmployeePerksAdmin;Password=@0nc366WRGjy;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+                Console.WriteLine("Warning: Using default connection string. Set DB_CONNECTION_STRING environment variable for production.");
             }
         }
 
