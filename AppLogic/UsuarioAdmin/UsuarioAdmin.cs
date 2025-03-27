@@ -76,5 +76,10 @@ namespace AppLogic.UsuarioAdmin
         {
             _usuarioCrud.Delete(id);
         }
+
+        public void ActivateDeactivateUsuario(int idUsuario, bool nuevoEstado)
+        {
+            _usuarioCrud.ActivateDeactivate(idUsuario, nuevoEstado);
+        }
     }
 }
