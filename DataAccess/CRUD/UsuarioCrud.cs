@@ -106,12 +106,14 @@ namespace DataAccess.CRUD
             dao.ExecuteStoredProcedureWithQuery(operation);
         }
 
+        //Overload para poder modificar un rol en el usuario indicado
         public void Update(int idUsuario, string rol)
         {
             // Get the Operation object from the mapper instance
-            SqlOperation operation = mapper.GetUpdateQuery(entity);
+            SqlOperation operation = mapper.GetUpdateRolQuery(idUsuario, rol);
             // Ask the DAO to perform the operation in the 
-            dao.ExecuteStoredProcedureWithQuery(operation);
+            var resultado = dao.ExecuteStoredProcedureWithQuery(operation);
+            Console.WriteLine(resultado);
         }
     }
 }
