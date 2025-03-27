@@ -127,5 +127,19 @@ namespace Proyecto_Software_2.Controllers
             return false;
         }
 
+        [HttpPut]
+        public IActionResult ActivarDesactivarUsuario([FromQuery]int idUsuario, [FromQuery] bool nuevoEstado)
+        {
+            try
+            {
+                _admin.ActivateDeactivateUsuario(idUsuario, nuevoEstado);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
