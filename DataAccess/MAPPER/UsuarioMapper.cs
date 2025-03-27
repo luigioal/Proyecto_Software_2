@@ -1,6 +1,7 @@
 ﻿using DataAccess.DAO;
 using DTO;
 using DTO.UsuarioDTO;
+using System.Net.Http.Headers;
 
 
 namespace DataAccess.MAPPERS
@@ -135,6 +136,17 @@ namespace DataAccess.MAPPERS
             return operation;
         }
 
+        // Operation para servir la peticion del crud de modificar un rol a un usuario indicado/ Si ya lo tiene se remueve o viceversa 
+        public SqlOperation GetUpdateRolQuery(int idUsuario, string rol)
+        {
+            SqlOperation operation = new SqlOperation();
+            operation.procedureName = "SP_UPDATE_USER_ROLES";
+            operation.AddIntegerParameter("UsuarioID", idUsuario);
+            operation.AddVarcharParameter("NombrePermiso", rol);
+
+            return operation;
+        }
+
         // MAP OBJECT method 
         public BaseClass MapObject(Dictionary<string, object> objectRow)
         {
@@ -171,8 +183,12 @@ namespace DataAccess.MAPPERS
             usuario.Id = GetValue<int>("UsuarioID");
             usuario.Tipo = GetString("Tipo");
 
-            if (!string.IsNullOrEmpty(usuario.Tipo))
-                usuario.Roles = new List<string> { usuario.Tipo };
+            // Desagregacion de roles a partir del string del stored procedure
+            usuario.Roles = GetString("Permisos").Split(',')
+                    .Select(s => s.Trim())
+                    .Where(s => !string.IsNullOrWhiteSpace(s))
+                    .ToList();
+
 
             // Id Supervisor
             usuario.IdSupervisor = GetValue<int?>("IdSupervisor");
