@@ -55,7 +55,7 @@ namespace Proyecto_Software_2.Controllers
         }
 
         [HttpPost]
-        public IActionResult CrearUsuario([FromBody] Usuario usuario)
+        public IActionResult CrearUsuario([FromForm] Usuario usuario)
         {
             try
             {
