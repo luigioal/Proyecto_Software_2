@@ -79,9 +79,24 @@ namespace Proyecto_Software_2.Controllers
         [HttpPut]
         public IActionResult ModificarUsuario([FromBody] Usuario usuario)
         {
+            Console.WriteLine(usuario);
             try
             {
                 _admin.UpdateUsuario(usuario);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public IActionResult ModificarRolesDeUsuario([FromQuery]int idUsuario, [FromQuery]string rol)
+        {
+            try
+            {
+                _admin.UpdateRolesDeUsuario(idUsuario, rol);
                 return Ok();
             }
             catch (Exception ex)
@@ -118,6 +133,20 @@ namespace Proyecto_Software_2.Controllers
             }
 
             return false;
+        }
+
+        [HttpPut]
+        public IActionResult ActivarDesactivarUsuario([FromQuery]int idUsuario, [FromQuery] bool nuevoEstado)
+        {
+            try
+            {
+                _admin.ActivateDeactivateUsuario(idUsuario, nuevoEstado);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
     }
