@@ -21,19 +21,14 @@ namespace Proyecto_Software_2.Controllers
 
 
         [HttpPost]
-        public IActionResult BuscarUsuarioPorEmail(string email)
+        public Usuario BuscarUsuarioPorEmail(string email)
         {
             
             UsuarioAdmin admin = new UsuarioAdmin();
-            var usuario = admin.ReturnUsuarioByEmail(email);
+            return admin.ReturnUsuarioByEmail(email);
 
             
-            if (usuario == null || string.IsNullOrEmpty(usuario.CorreoElectronico))
-            {
-                return NotFound(new { message = "Usuario no encontrado" });
-            }
-
-            return Ok(usuario);
+            
 
         }
 
