@@ -20,20 +20,21 @@ namespace Proyecto_Software_2.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Otp>> GenerarOTP(string email)
+        public async Task<ActionResult<Otp>> GenerarOTP([FromBody] EmailRequest request)
         {
-            if (string.IsNullOrEmpty(email))
+            
+            if (string.IsNullOrEmpty(request.email))
             {
                 return BadRequest(new Otp { Success = false, Message = "El correo electrónico es requerido" });
             }
 
             try
             {
-                string otp = await _otpAdmin.GenerateOTP(email);
+                string otp = await _otpAdmin.GenerateOTP(request.email);
 
                 return Ok(new Otp
                 {
-                    Email = email,
+                    Email = request.email,
                     otpCode = otp, 
                     ExpiresAt = DateTime.UtcNow.AddMinutes(1),
                     Success = true,
@@ -62,7 +63,7 @@ namespace Proyecto_Software_2.Controllers
                 });
             }
 
-            bool isValid = _otpAdmin.Verify(req.Email, req.otpCode);
+            bool isValid = _otpAdmin.VerifyOTP(req.Email, req.otpCode);
 
             return Ok(new Otp
             {

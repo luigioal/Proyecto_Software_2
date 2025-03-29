@@ -28,7 +28,7 @@ namespace AppLogic.SeguridadAdmin
             return otp; // En producción, no devolver el OTP
         }
 
-        public bool Verify(string email, string otp)
+        public bool VerifyOTP(string email, string otp)
         {
             // Verificar si existe un OTP para este email
             if (!_otpStore.TryGetValue(email, out var entry))
