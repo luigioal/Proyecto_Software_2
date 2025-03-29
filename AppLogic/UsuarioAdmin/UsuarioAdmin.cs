@@ -81,5 +81,15 @@ namespace AppLogic.UsuarioAdmin
         {
             _usuarioCrud.ActivateDeactivate(idUsuario, nuevoEstado);
         }
+
+        public bool CambiarContrasena(string email, string nuevaContrasena)
+        {
+            var usuario = _usuarioCrud.RetrieveByEmail<Usuario>(email);
+            if (usuario == null) return false;
+
+            usuario.Contrasena = nuevaContrasena;
+            _usuarioCrud.Update(usuario);
+            return true;
+        }
     }
 }
