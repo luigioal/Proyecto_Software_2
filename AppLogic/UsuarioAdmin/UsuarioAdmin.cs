@@ -67,20 +67,19 @@ namespace AppLogic.UsuarioAdmin
             _usuarioCrud.Update(usuario);
         }
 
+        public void UpdateRolesDeUsuario(int idUsuario, string rol)
+        {
+            _usuarioCrud.UpdateRol(idUsuario, rol);
+        }
+
         public void DeleteUsuario(int id)
         {
             _usuarioCrud.Delete(id);
         }
 
-        public bool CambiarContrasena(string email, string nuevaContrasena)
+        public void ActivateDeactivateUsuario(int idUsuario, bool nuevoEstado)
         {
-            var usuario = _usuarioCrud.RetrieveByEmail<Usuario>(email);
-            if (usuario == null) return false;
-
-            usuario.Contrasena = nuevaContrasena; 
-            _usuarioCrud.Update(usuario);
-            return true;
+            _usuarioCrud.ActivateDeactivate(idUsuario, nuevoEstado);
         }
-
     }
 }

@@ -10,11 +10,11 @@ namespace DataAccess.MAPPERS
 {
     public interface ICrudQueries
     {
-        //SqlOperation GetCreateQuery(BaseClass entity);
+        SqlOperation GetCreateQuery(BaseClass entity);
         SqlOperation GetUpdateQuery(BaseClass entity);
-        //SqlOperation GetDeleteQuery(int Id);
+        SqlOperation GetDeleteQuery(int Id);
         SqlOperation GetRetrieveAllQuery();
-        //SqlOperation GetRetrieveByIdQuery(string email);
+        SqlOperation GetRetrieveByIdQuery(int idUsuario);
         SqlOperation GetRetrieveByEmailQuery(string email);
     }
 }
