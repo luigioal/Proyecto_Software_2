@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace DTO.SeguridadDTO
@@ -9,9 +10,9 @@ namespace DTO.SeguridadDTO
     public class Otp : BaseClass
     {
         public string Email { get; set; }
-        public string otpCode { get; set; }
-        public DateTime ExpiresAt { get; set; }
-        public bool Success { get; set; }
-        public string Message { get; set; }
+        public string OtpCode { get; set; }
+        public DateTime? ExpiresAt { get; set; }
+        public bool? Success { get; set; }
+        public string? Message { get; set; }
     }
 }
