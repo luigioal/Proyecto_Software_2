@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace DataAccess.DAO
         private SqlDao()
         {
             // Get connection string 
-            _connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+            _connectionString = "Server=tcp:employee-perks-wilmer-server.database.windows.net,1433;Initial Catalog=Proyecto_Software_2_DB;Persist Security Info=False;User ID=lavarus;Password=W.w72v8siFVP7..;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";//"Server=localhost;Database=master;Trusted_Connection=True;TrustServerCertificate=True;";//Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
 
             // Fallback 
             if (string.IsNullOrEmpty(_connectionString))
