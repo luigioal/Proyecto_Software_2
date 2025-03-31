@@ -3,8 +3,7 @@ using DTO;
 using DTO.UsuarioDTO;
 using System.Net.Http.Headers;
 
-
-namespace DataAccess.MAPPERS
+namespace DataAccess.MAPPER
 {
     public class UsuarioMapper : ICrudQueries, IObjectMapper
     {
@@ -183,7 +182,7 @@ namespace DataAccess.MAPPERS
 
             string GetString(string key)
             {
-                if (!objectRow.ContainsKey(key) || objectRow[key] == null || objectRow[key] == DBNull.Value)
+                if (!objectRow.ContainsKey(key) || objectRow[key] == null)
                     return null;
 
                 return objectRow[key].ToString();
