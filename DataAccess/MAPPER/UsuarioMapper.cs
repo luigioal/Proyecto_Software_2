@@ -174,7 +174,7 @@ namespace DataAccess.MAPPERS
            
             T GetValue<T>(string key, T defaultValue = default)
             {
-                if (!objectRow.ContainsKey(key) || objectRow[key] == null || objectRow[key] == DBNull.Value)
+                if (!objectRow.ContainsKey(key) || objectRow[key] == null)
                     return defaultValue;
 
                 try { return (T)Convert.ChangeType(objectRow[key], typeof(T)); }
@@ -183,7 +183,7 @@ namespace DataAccess.MAPPERS
 
             string GetString(string key)
             {
-                if (!objectRow.ContainsKey(key) || objectRow[key] == null || objectRow[key] == DBNull.Value)
+                if (!objectRow.ContainsKey(key) || objectRow[key] == null)
                     return null;
 
                 return objectRow[key].ToString();
@@ -191,7 +191,7 @@ namespace DataAccess.MAPPERS
 
             DateTime? GetDateTime(string key)
             {
-                if (!objectRow.ContainsKey(key) || objectRow[key] == null || objectRow[key] == DBNull.Value)
+                if (!objectRow.ContainsKey(key) || objectRow[key] == null)
                     return null;
 
                 try { return DateTime.Parse(objectRow[key].ToString()); }
@@ -223,7 +223,7 @@ namespace DataAccess.MAPPERS
             usuario.Contrasena = GetString("Contrasena");
 
             // Saldo
-            if (objectRow.ContainsKey("Saldo") && objectRow["Saldo"] != null && objectRow["Saldo"] != DBNull.Value)
+            if (objectRow.ContainsKey("Saldo") && objectRow["Saldo"] != null)
             {
                 try { usuario.Saldo = Convert.ToDouble(objectRow["Saldo"]); }
                 catch { usuario.Saldo = null; }

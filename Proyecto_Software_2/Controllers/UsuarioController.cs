@@ -26,7 +26,10 @@ namespace Proyecto_Software_2.Controllers
             
             UsuarioAdmin admin = new UsuarioAdmin();
             return admin.ReturnUsuarioByEmail(email);
+
             
+            
+
         }
 
         [HttpGet]

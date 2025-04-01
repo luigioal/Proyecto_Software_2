@@ -25,6 +25,7 @@ namespace Proyecto_Software_2.Controllers
         [HttpPost]
         public async Task<ActionResult<Otp>> GenerarOTP(string email)
         {
+            
             if (string.IsNullOrEmpty(email))
             {
                 return BadRequest(new Otp { Success = false, Message = "El correo electrónico es requerido" });
