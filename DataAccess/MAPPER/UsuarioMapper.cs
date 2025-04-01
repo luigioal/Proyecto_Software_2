@@ -223,7 +223,7 @@ namespace DataAccess.MAPPERS
             usuario.Contrasena = GetString("Contrasena");
 
             // Saldo
-            if (objectRow.ContainsKey("Saldo") && objectRow["Saldo"] != null && objectRow["Saldo"] != DBNull.Value)
+            if (objectRow.ContainsKey("Saldo") && objectRow["Saldo"] != null)
             {
                 try { usuario.Saldo = Convert.ToDouble(objectRow["Saldo"]); }
                 catch { usuario.Saldo = null; }
