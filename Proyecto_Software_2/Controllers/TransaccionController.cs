@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using DTO.TransaccionDTO;
 using AppLogic.TransaccionAdmin;
 using AppLogic.UsuarioAdmin;
+using DTO.UsuarioDTO;
 
 namespace Proyecto_Software_2.Controllers
 {
@@ -22,5 +23,21 @@ namespace Proyecto_Software_2.Controllers
         {
             return _admin.ReturnCargosExtra();
         }
+
+        [HttpPost]
+        public IActionResult ModificarCargosExtra(CargosExtra cargosExtra)
+        {
+            try
+            {
+                _admin.ModifyCargoExtra(cargosExtra);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+        }
     }
 }
+
