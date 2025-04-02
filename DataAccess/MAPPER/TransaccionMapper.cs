@@ -1,6 +1,7 @@
 ﻿using DataAccess.DAO;
 using DTO;
 using DTO.TransaccionDTO;
+using DTO.UsuarioDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,23 @@ namespace DataAccess.MAPPER
 
         public SqlOperation GetUpdateQuery(BaseClass entity)
         {
-            throw new NotImplementedException();
+            SqlOperation operation = new SqlOperation();
+            operation.procedureName = "SP_UPDATE_TAX_AND_COMMISIONS";
+
+            var cargosExtra = entity as CargosExtra;
+
+            if (cargosExtra == null)
+                throw new ArgumentException("Entity must be of type Usuario");
+
+            // Required ID
+            operation.AddDoubleParameter("ComisionTransaccion", cargosExtra.ComisionTransaccion);
+            operation.AddDoubleParameter("ComisionAsesor", cargosExtra.ComisionAsesor);
+            operation.AddDoubleParameter("ComisionAsesorGanancia", cargosExtra.ComisionAsesorGanancia);
+            operation.AddDoubleParameter("ComisionAsesorPerdida", cargosExtra.ComisionAsesorPerdida);
+            operation.AddDoubleParameter("ImpuestoSobreGanancia", cargosExtra.ImpuestoSobreGanancia);
+            operation.AddDoubleParameter("TarifaMinimaTransaccion", cargosExtra.TarifaMinimaTransaccion);
+
+            return operation;
         }
 
         public CargosExtra MapObject(Dictionary<string, object> objectRow)

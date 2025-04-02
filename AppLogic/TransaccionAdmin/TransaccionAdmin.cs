@@ -24,5 +24,10 @@ namespace AppLogic.TransaccionAdmin
         {
             return _transaccionCrud.RetrieveById<CargosExtra>(1);
         }
+
+        public void ModifyCargoExtra(CargosExtra cargosExtra)
+        {
+            _transaccionCrud.Update(cargosExtra);
+        }
     }
 }

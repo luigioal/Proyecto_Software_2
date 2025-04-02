@@ -68,7 +68,10 @@ namespace DataAccess.CRUD
 
         public override void Update(BaseClass entity)
         {
-            throw new NotImplementedException();
+            // Get the Operation object from the mapper instance
+            SqlOperation operation = mapper.GetUpdateQuery(entity);
+            // Ask the DAO to perform the operation in the 
+            dao.ExecuteStoredProcedureWithQuery(operation);
         }
     }
 }
