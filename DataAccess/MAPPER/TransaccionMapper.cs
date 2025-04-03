@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DataAccess.MAPPER
 {
@@ -27,12 +28,30 @@ namespace DataAccess.MAPPER
             throw new NotImplementedException();
         }
 
+        public SqlOperation GetRetrieveAllQuery(int idUsuario, string tipo, DateTime fechaInicio, DateTime fechaFin)
+        {
+            SqlOperation operation = new SqlOperation();
+
+            operation.procedureName = "SP_SELECT_ALL_INVESTMENTS";
+            operation.AddIntegerParameter("UsuarioID", idUsuario);
+            operation.AddVarcharParameter("Tipo", tipo);
+            operation.AddDateTimeParameter("FechaInicio", fechaInicio);
+            operation.AddDateTimeParameter("FechaFin", fechaFin);
+
+            return operation;
+        }
+
         public SqlOperation GetRetrieveByEmailQuery(string email)
         {
             throw new NotImplementedException();
         }
 
-        public SqlOperation GetRetrieveByIdQuery(int idDummy)
+        public SqlOperation GetRetrieveByIdQuery(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SqlOperation GetRetrieveCargosExtraQuery()
         {
             SqlOperation operation = new SqlOperation();
             operation.procedureName = "SP_SELECT_ALL_TAX_AND_COMMISIONS";
@@ -61,7 +80,7 @@ namespace DataAccess.MAPPER
             return operation;
         }
 
-        public CargosExtra MapObject(Dictionary<string, object> objectRow)
+        public CargosExtra MapCargosExtra(Dictionary<string, object> objectRow)
         {
             T GetValue<T>(string key, T defaultValue = default)
             {
@@ -95,22 +114,76 @@ namespace DataAccess.MAPPER
             return cargosExtra;
         }
 
-        public List<BaseClass> MapObjectList(List<Dictionary<string, object>> objectList)
+        public BaseClass MapObject(Dictionary<string, object> objectRow)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<BaseClass> MapInvestmentObjectList(List<Dictionary<string, object>> objectList)
         {
             var list = new List<BaseClass>();
 
-            foreach (var objectRow in objectList)
+            foreach (var row in objectList)
             {
-                var usuario = MapObject(objectRow);
-                list.Add(usuario);
+                var investment = MapInvestmentObject(row);
+                list.Add(investment);
             }
 
             return list;
         }
 
-        BaseClass IObjectMapper.MapObject(Dictionary<string, object> objectRow)
+        public BaseClass MapInvestmentObject(Dictionary<string, object> objectRow)
         {
-            return MapObject(objectRow);
+            InversionCard inversion = new InversionCard();
+
+
+            T GetValue<T>(string key, T defaultValue = default)
+            {
+                if (!objectRow.ContainsKey(key) || objectRow[key] == null)
+                    return defaultValue;
+
+                try 
+                {
+                    var value = (T)Convert.ChangeType(objectRow[key], typeof(T));
+                    return value;
+                }
+                catch { return defaultValue; }
+            }
+
+            string GetString(string key)
+            {
+                if (!objectRow.ContainsKey(key) || objectRow[key] == null)
+                    return null;
+
+                return objectRow[key].ToString();
+            }
+
+            DateTime? GetDateTime(string key)
+            {
+                if (!objectRow.ContainsKey(key) || objectRow[key] == null)
+                    return null;
+
+                try { return DateTime.Parse(objectRow[key].ToString()); }
+                catch { return null; }
+            }
+
+            // Mapper
+            inversion.Instrumento = GetString("Instrumento");
+            inversion.Nombre = GetString("Nombre");
+            inversion.Simbolo = GetString("Simbolo");
+            inversion.Cantidad = GetValue<double>("Cantidad");
+            inversion.PrecioPromedioCompra = GetValue<double>("PrecioPromedio");
+            inversion.PrecioUnitarioVenta = GetValue<double?>("PrecioUnitario");
+            inversion.FechaUltimaCompra = GetDateTime("UltimaFechaCompra");
+            inversion.FechaVenta = GetDateTime("FechaVenta");
+            inversion.GananciaEjecutada = GetValue<double?>("MontoTotal");
+
+            return inversion;
+        }
+
+        public List<BaseClass> MapObjectList(List<Dictionary<string, object>> objectList)
+        {
+            throw new NotImplementedException();
         }
     }
 
