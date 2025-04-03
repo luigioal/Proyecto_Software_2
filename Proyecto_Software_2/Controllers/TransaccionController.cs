@@ -19,9 +19,17 @@ namespace Proyecto_Software_2.Controllers
         }
 
         [HttpGet]
-        public CargosExtra ObtenerCargosExtra()
+        public IActionResult ObtenerCargosExtra()
         {
-            return _admin.ReturnCargosExtra();
+            try
+            {
+                CargosExtra cargosExtra = _admin.ReturnCargosExtra();
+                return Ok(cargosExtra);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
@@ -36,7 +44,25 @@ namespace Proyecto_Software_2.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            
+        }
+
+        [HttpGet]
+        public IActionResult ObtenerInversiones([FromQuery] int idCliente,
+                                                [FromQuery] string tipo, // Compra, Venta   
+                                                [FromQuery] DateTime fechaInicio,
+                                                [FromQuery] DateTime fechaFin)
+        {
+            try
+            {
+                fechaInicio = new DateTime(2020, 01, 01);
+                fechaFin = DateTime.Now;
+                List<InversionCard> inversiones = _admin.ReturnInversiones(idCliente, tipo, fechaInicio, fechaFin);
+                return Ok(inversiones);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
