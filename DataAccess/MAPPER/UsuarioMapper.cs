@@ -3,8 +3,7 @@ using DTO;
 using DTO.UsuarioDTO;
 using System.Net.Http.Headers;
 
-
-namespace DataAccess.MAPPERS
+namespace DataAccess.MAPPER
 {
     public class UsuarioMapper : ICrudQueries, IObjectMapper
     {
@@ -87,11 +86,13 @@ namespace DataAccess.MAPPERS
             return operation;
         }
 
-        // DELETE operation soft delete
+        // DELETE operation soft delete 
+        // 3/31/2025 Passed to hard delete for dev period
         public SqlOperation GetDeleteQuery(int Id)
         {
             SqlOperation operation = new SqlOperation();
-            operation.procedureName = "SP_DEACTIVATE_USER";
+            //operation.procedureName = "SP_DEACTIVATE_USER";
+            operation.procedureName = "SP_DELETE_USER";
             operation.AddIntegerParameter("UsuarioID", Id);
 
             return operation;
