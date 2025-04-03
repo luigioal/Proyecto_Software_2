@@ -4,6 +4,7 @@ using DTO;
 using DTO.TransaccionDTO;
 using DTO.UsuarioDTO;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,9 +32,30 @@ namespace DataAccess.CRUD
             throw new NotImplementedException();
         }
 
-        public override List<T> RetrieveAll<T>()
+        public List<T> RetrieveAll<T>(int idUsuario, string tipo, DateTime fechaInicio, DateTime fechaFin) // tipo = 'Activo' | 
         {
-            throw new NotImplementedException();
+            List<T> list = new List<T>();
+            if(typeof(T) == typeof(InversionCard))
+            {
+                SqlOperation operation = mapper.GetRetrieveAllQuery(idUsuario, tipo, fechaInicio, fechaFin);
+                List<Dictionary<string, object>> dataResults = dao.ExecuteStoredProcedureWithQuery(operation);
+
+                if (dataResults.Count > 0)
+                {
+                    var dtObjects = mapper.MapInvestmentObjectList(dataResults);
+                    foreach (var obj in dtObjects)
+                    {
+                        InversionCard inversion = (InversionCard)obj;
+                        list.Add((T)Convert.ChangeType(obj, typeof(T)));
+                    }
+                }
+
+                return list;
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public override T RetrieveByEmail<T>(string email)
@@ -43,13 +65,26 @@ namespace DataAccess.CRUD
 
         public override T RetrieveById<T>(int Id)
         {
-            SqlOperation operation = mapper.GetRetrieveByIdQuery(Id);
+            throw new NotImplementedException();
+        }
+
+        public override void Update(BaseClass entity)
+        {
+            // Get the Operation object from the mapper instance
+            SqlOperation operation = mapper.GetUpdateQuery(entity);
+            // Ask the DAO to perform the operation in the 
+            dao.ExecuteStoredProcedureWithQuery(operation);
+        }
+
+        public CargosExtra RetrieveCargosExtra()
+        {
+            SqlOperation operation = mapper.GetRetrieveCargosExtraQuery();
             CargosExtra resultDTO;
 
             List<Dictionary<string, object>> dataResults = dao.ExecuteStoredProcedureWithQuery(operation);
             if (dataResults.Count > 0)
             {
-                resultDTO = (CargosExtra)mapper.MapObject(dataResults[0]);
+                resultDTO = (CargosExtra)mapper.MapCargosExtra(dataResults[0]);
             }
             else
             {
@@ -63,15 +98,12 @@ namespace DataAccess.CRUD
                     TarifaMinimaTransaccion = 0.0
                 };
             }
-            return (T)Convert.ChangeType(resultDTO, typeof(T));
+            return resultDTO;
         }
 
-        public override void Update(BaseClass entity)
+        public override List<T> RetrieveAll<T>()
         {
-            // Get the Operation object from the mapper instance
-            SqlOperation operation = mapper.GetUpdateQuery(entity);
-            // Ask the DAO to perform the operation in the 
-            dao.ExecuteStoredProcedureWithQuery(operation);
+            throw new NotImplementedException();
         }
     }
 }
