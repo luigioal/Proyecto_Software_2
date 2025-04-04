@@ -211,7 +211,7 @@ namespace DataAccess.MAPPER
 
 
             // Id Supervisor
-            usuario.IdSupervisor = GetValue<int?>("IdSupervisor");
+            usuario.IdSupervisor = GetValue<int>("IdSupervisor") == 0 ? GetValue<int>("IDRelacionado") : GetValue<int>("IdSupervisor");
 
             usuario.Nombre = GetString("Nombre");
             usuario.PrimerApellido = GetString("PrimerApellido");
