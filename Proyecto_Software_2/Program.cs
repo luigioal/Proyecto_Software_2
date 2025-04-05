@@ -40,6 +40,17 @@ namespace Proyecto_Software_2
                         policy.AllowAnyMethod();
                         policy.AllowAnyOrigin();
                     });
+                    
+            });
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowUI", policy =>
+                {
+                    policy.WithOrigins("https://proyecto-software-2-ui-drdzbrd3cjgugpap.canadacentral-01.azurewebsites.net")
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
             });
 
             var app = builder.Build();
@@ -54,6 +65,7 @@ namespace Proyecto_Software_2
             app.UseAuthorization();
 
             app.UseCors("MyPolicy");
+            app.UseCors("AllowUI");
 
             app.MapControllers();
 
