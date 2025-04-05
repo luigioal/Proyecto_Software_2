@@ -70,6 +70,9 @@ namespace DataAccess.MAPPER
             operation.AddVarcharParameter("SegundoApellido", usuario.SegundoApellido);
             operation.AddVarcharParameter("Direccion", usuario.Direccion);
             operation.AddVarcharParameter("FotoPerfil", usuario.FotoPerfil);
+            //operation.AddDateTimeParameter("FechaNacimiento", usuario.FechaNacimiento ?? DateTime.Now);
+            //operation.AddVarcharParameter("CorreoElectronico", usuario.CorreoElectronico ?? string.Empty);
+            //operation.AddDoubleParameter("Saldo", usuario.Saldo.Value); 
 
             if (!string.IsNullOrEmpty(usuario.Contrasena))
                 operation.AddVarcharParameter("Contrasena", usuario.Contrasena);
@@ -211,8 +214,8 @@ namespace DataAccess.MAPPER
 
 
             // Id Supervisor
+            //usuario.IdSupervisor = GetValue<int?>("IdSupervisor");
             usuario.IdSupervisor = GetValue<int>("IdSupervisor") == 0 ? GetValue<int>("IDRelacionado") : GetValue<int>("IdSupervisor");
-
             usuario.Nombre = GetString("Nombre");
             usuario.PrimerApellido = GetString("PrimerApellido");
             usuario.SegundoApellido = GetString("SegundoApellido");
