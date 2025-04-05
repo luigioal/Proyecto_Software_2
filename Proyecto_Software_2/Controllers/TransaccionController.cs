@@ -4,9 +4,11 @@ using DTO.TransaccionDTO;
 using AppLogic.TransaccionAdmin;
 using AppLogic.UsuarioAdmin;
 using DTO.UsuarioDTO;
+using Microsoft.AspNetCore.Cors;
 
 namespace Proyecto_Software_2.Controllers
 {
+    [EnableCors("MyPolicy")]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class TransaccionController : ControllerBase
