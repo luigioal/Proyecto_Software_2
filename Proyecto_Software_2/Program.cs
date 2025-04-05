@@ -49,7 +49,8 @@ namespace Proyecto_Software_2
                 {
                     policy.WithOrigins("https://proyecto-software-2-ui-drdzbrd3cjgugpap.canadacentral-01.azurewebsites.net")
                           .AllowAnyMethod()
-                          .AllowAnyHeader();
+                          .AllowAnyHeader()
+                          .AllowAnyOrigin();
                 });
             });
 
