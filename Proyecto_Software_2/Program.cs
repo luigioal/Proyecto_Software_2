@@ -50,6 +50,16 @@ namespace Proyecto_Software_2
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            else
+            {
+                // Para usar swagger en el ambiente de prod
+                app.UseSwagger();
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                    options.RoutePrefix = string.Empty;
+                });
+            }
 
             app.UseAuthorization();
 
