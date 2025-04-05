@@ -63,10 +63,10 @@ namespace Proyecto_Software_2
                 app.UseSwaggerUI();
             }
 
-            app.UseAuthorization();
-
             app.UseCors("MyPolicy");
             app.UseCors("AllowUI");
+
+            app.UseAuthorization();
 
             app.MapControllers();
 
