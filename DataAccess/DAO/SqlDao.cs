@@ -11,8 +11,6 @@ namespace DataAccess.DAO
 {
     public class SqlDao
     {
-
-        
         private readonly string _connectionString;
 
         private SqlDao()

@@ -1,5 +1,5 @@
 ﻿using DataAccess.DAO;
-using DataAccess.MAPPERS;
+using DataAccess.MAPPER;
 using DTO;
 using DTO.UsuarioDTO;
 using System;
@@ -18,7 +18,6 @@ namespace DataAccess.CRUD
             
             mapper = new UsuarioMapper();
             dao = SqlDao.GetInstance();
-        
         }
 
         public override void Create(BaseClass entity)

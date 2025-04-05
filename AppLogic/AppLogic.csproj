@@ -8,9 +8,11 @@
 
   <ItemGroup>
     <Folder Include="ConnectorsAdmin\" />
-    <Folder Include="FinanzaAdmin\" />
     <Folder Include="ReporteAdmin\" />
-    <Folder Include="TransaccionAdmin\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
