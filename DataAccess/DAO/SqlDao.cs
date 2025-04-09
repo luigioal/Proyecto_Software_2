@@ -16,7 +16,7 @@ namespace DataAccess.DAO
         private SqlDao()
         {
             // Get connection string 
-            _connectionString = "Server=tcp:employee-perks-wilmer-server.database.windows.net,1433;Initial Catalog=Proyecto_Software_2_DB;Persist Security Info=False;User ID=lavarus;Password=W.w72v8siFVP7..;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=300;";//"Server=localhost;Database=master;Trusted_Connection=True;TrustServerCertificate=True;";//Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+            _connectionString = null;//"Server=tcp:employee-perks-wilmer-server.database.windows.net,1433;Initial Catalog=Proyecto_Software_2_DB;Persist Security Info=False;User ID=lavarus;Password=W.w72v8siFVP7..;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=300;";//"Server=localhost;Database=master;Trusted_Connection=True;TrustServerCertificate=True;";//Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
 
             // Fallback 
             if (string.IsNullOrEmpty(_connectionString))
