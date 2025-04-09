@@ -8,7 +8,7 @@ using DataAccess.CRUD;
 
 namespace Proyecto_Software_2.Controllers
 {
-    [EnableCors("MyPolicy")]
+    [EnableCors("AllowUI")]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class UsuarioController : ControllerBase
