@@ -1,3 +1,7 @@
+using Amazon.Extensions.NETCore.Setup;
+using Amazon.Runtime;
+using Amazon.S3;
+using Microsoft.AspNetCore.Builder;
 
 namespace Proyecto_Software_2
 {
@@ -6,9 +10,16 @@ namespace Proyecto_Software_2
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var awsOptions = builder.Configuration.GetAWSOptions();
+
+            // Add AWS AppConfig configuration
+            awsOptions.Credentials = new BasicAWSCredentials(
+                builder.Configuration["AWS:AccessKey"],
+                builder.Configuration["AWS:SecretKey"]);
+            builder.Services.AddDefaultAWSOptions(awsOptions);
+            builder.Services.AddAWSService<IAmazonS3>();
 
             // Add services to the container.
-
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -40,6 +51,18 @@ namespace Proyecto_Software_2
                         policy.AllowAnyMethod();
                         policy.AllowAnyOrigin();
                     });
+                    
+            });
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowUI", policy =>
+                {
+                    policy.WithOrigins("https://proyecto-software-2-ui-drdzbrd3cjgugpap.canadacentral-01.azurewebsites.net")
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .AllowAnyOrigin();
+                });
             });
 
             var app = builder.Build();
@@ -61,9 +84,10 @@ namespace Proyecto_Software_2
                 });
             }
 
-            app.UseAuthorization();
-
             app.UseCors("MyPolicy");
+            app.UseCors("AllowUI");
+
+            app.UseAuthorization();
 
             app.MapControllers();
 
