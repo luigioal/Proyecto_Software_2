@@ -11,7 +11,7 @@ namespace DTO.SeguridadDTO
         public string FileName { get; set; }        // e.g., "document.pdf"
         public string ContentType { get; set; }     // e.g., "application/pdf"
         public long? FileSize { get; set; }         // Optional: for size validation
-        public string UserId { get; set; }          // Optional: for user-specific uploads
+        public string? UserId { get; set; }          // Optional: for user-specific uploads
 
     }
 }

@@ -5,6 +5,11 @@ using AppLogic.UsuarioAdmin;
 using DTO.SeguridadDTO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
+using Amazon.S3;
+using Amazon.S3.Model;
+using Amazon;
+using Microsoft.Extensions.Options;
+using System.Web;
 
 namespace Proyecto_Software_2.Controllers
 {
@@ -14,11 +19,14 @@ namespace Proyecto_Software_2.Controllers
     public class SeguridadController : ControllerBase
     {
         private readonly SeguridadAdmin _otpAdmin;
+        private readonly IAmazonS3 _s3Client;
+        private readonly string _bucketName;
         private readonly UsuarioAdmin _usuarioAdmin = new UsuarioAdmin();
 
-
-        public SeguridadController(SeguridadAdmin seguridadAdmin)
+        public SeguridadController(SeguridadAdmin seguridadAdmin, IAmazonS3 s3Client, IConfiguration config)
         {
+            _s3Client = s3Client;
+            _bucketName = config["AWS:BucketName"];
             _otpAdmin = seguridadAdmin;
         }
 
@@ -98,5 +106,45 @@ namespace Proyecto_Software_2.Controllers
                 Message = actualizado ? "Contraseña actualizada exitosamente" : "No se pudo actualizar la contraseña"
             });
         }
+
+        [HttpPost]
+        public IActionResult GeneratePresignedUrl([FromBody] PresignRequest request)
+        {
+            var extension = Path.GetExtension(request.FileName).ToLower();
+            var contentType = extension switch
+            {
+                ".pdf" => "application/pdf",
+                ".jpg" or ".jpeg" => "image/jpeg",
+                _ => "application/octet-stream" // Default
+            };
+            // Validate file type/size
+            if (IsValidFileType(contentType))
+            {
+                var objectKey = $"uploads/{Guid.NewGuid()}{Path.GetExtension(request.FileName)}";
+
+                var presignedUrl = _s3Client.GetPreSignedURL(new GetPreSignedUrlRequest
+                {
+                    BucketName = _bucketName,
+                    Key = objectKey,
+                    Verb = HttpVerb.PUT,
+                    Expires = DateTime.UtcNow.AddMinutes(30),
+                });
+
+                return Ok(new
+                {
+                    uploadUrl = presignedUrl,
+                    publicUrl = $"https://{_bucketName}.s3.amazonaws.com/{objectKey}"
+                });
+            }
+
+            return BadRequest("Invalid file type");
+        }
+
+        private bool IsValidFileType(string contentType)
+        {
+            var allowedTypes = new[] { "application/pdf", "image/jpeg" };
+            return allowedTypes.Contains(contentType);
+        }
+
     }
 }

@@ -32,8 +32,14 @@ namespace DataAccess.MAPPER
             if (usuario.Direccion != null)
                 operation.AddVarcharParameter("Direccion", usuario.Direccion);
 
+            if (usuario.Roles != null)
+                operation.AddVarcharParameter("PermisosIniciales", string.Join(", ", usuario.Roles));
+
             if (usuario.FotoPerfil != null)
                 operation.AddVarcharParameter("FotoPerfil", usuario.FotoPerfil);
+
+            if (usuario.DocumentoContrato != null)
+                operation.AddVarcharParameter("RutaDocumentoContrato", usuario.DocumentoContrato);
 
             operation.AddBooleanParameter("Estado", usuario.Estado ?? false);
 

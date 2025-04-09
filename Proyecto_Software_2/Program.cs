@@ -1,3 +1,7 @@
+using Amazon.Extensions.NETCore.Setup;
+using Amazon.Runtime;
+using Amazon.S3;
+using Microsoft.AspNetCore.Builder;
 
 namespace Proyecto_Software_2
 {
@@ -6,9 +10,16 @@ namespace Proyecto_Software_2
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var awsOptions = builder.Configuration.GetAWSOptions();
+
+            // Add AWS AppConfig configuration
+            awsOptions.Credentials = new BasicAWSCredentials(
+                builder.Configuration["AWS:AccessKey"],
+                builder.Configuration["AWS:SecretKey"]);
+            builder.Services.AddDefaultAWSOptions(awsOptions);
+            builder.Services.AddAWSService<IAmazonS3>();
 
             // Add services to the container.
-
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
