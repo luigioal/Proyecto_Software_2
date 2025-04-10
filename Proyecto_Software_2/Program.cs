@@ -1,6 +1,7 @@
 using Amazon.Extensions.NETCore.Setup;
 using Amazon.Runtime;
 using Amazon.S3;
+using AppLogic.ConnectorsAdmin;
 using Microsoft.AspNetCore.Builder;
 
 namespace Proyecto_Software_2
@@ -24,6 +25,9 @@ namespace Proyecto_Software_2
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            // Registrar AWS S3 Connector
+            builder.Services.AddSingleton<AwsConnector>();
 
             // Registrar Notificador
             builder.Services.AddSingleton<AppLogic.SeguridadAdmin.Notificador>(sp =>
