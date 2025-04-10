@@ -101,7 +101,7 @@ namespace Proyecto_Software_2.Controllers
         }
 
         [HttpPost]
-        public IActionResult GeneratePresignedUrl([FromBody] PresignRequest request)
+        public IActionResult GenerarUrlAws([FromBody] PresignRequest request)
         {
             if (request.FileName != null)
             { 
