@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Finanza\**" />
+    <Compile Remove="Reporte\**" />
+    <Compile Remove="Seguridad\**" />
+    <EmbeddedResource Remove="Finanza\**" />
+    <EmbeddedResource Remove="Reporte\**" />
+    <EmbeddedResource Remove="Seguridad\**" />
+    <None Remove="Finanza\**" />
+    <None Remove="Reporte\**" />
+    <None Remove="Seguridad\**" />
+  </ItemGroup>
+
+</Project>

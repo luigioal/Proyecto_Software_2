@@ -1,0 +1,12 @@
+C:\Repositories\Proyecto_Software_2\DTO\bin\Debug\net8.0\DTO.deps.json
+C:\Repositories\Proyecto_Software_2\DTO\bin\Debug\net8.0\DTO.dll
+C:\Repositories\Proyecto_Software_2\DTO\bin\Debug\net8.0\DTO.pdb
+C:\Repositories\Proyecto_Software_2\DTO\obj\Debug\net8.0\DTO.GeneratedMSBuildEditorConfig.editorconfig
+C:\Repositories\Proyecto_Software_2\DTO\obj\Debug\net8.0\DTO.AssemblyInfoInputs.cache
+C:\Repositories\Proyecto_Software_2\DTO\obj\Debug\net8.0\DTO.AssemblyInfo.cs
+C:\Repositories\Proyecto_Software_2\DTO\obj\Debug\net8.0\DTO.csproj.CoreCompileInputs.cache
+C:\Repositories\Proyecto_Software_2\DTO\obj\Debug\net8.0\DTO.sourcelink.json
+C:\Repositories\Proyecto_Software_2\DTO\obj\Debug\net8.0\DTO.dll
+C:\Repositories\Proyecto_Software_2\DTO\obj\Debug\net8.0\refint\DTO.dll
+C:\Repositories\Proyecto_Software_2\DTO\obj\Debug\net8.0\DTO.pdb
+C:\Repositories\Proyecto_Software_2\DTO\obj\Debug\net8.0\ref\DTO.dll

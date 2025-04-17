@@ -1,0 +1,499 @@
+[
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.SeguridadController",
+    "Method": "CambiarContrasena",
+    "RelativePath": "api/Seguridad/CambiarContrasena",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "DTO.SeguridadDTO.CambioContrasenaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DTO.SeguridadDTO.Otp",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.SeguridadController",
+    "Method": "GenerarOTP",
+    "RelativePath": "api/Seguridad/GenerarOTP",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DTO.SeguridadDTO.Otp",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.SeguridadController",
+    "Method": "GeneratePresignedUrl",
+    "RelativePath": "api/Seguridad/GeneratePresignedUrl",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "DTO.SeguridadDTO.PresignRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.SeguridadController",
+    "Method": "ValidarOTP",
+    "RelativePath": "api/Seguridad/ValidarOTP",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "DTO.SeguridadDTO.Otp",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DTO.SeguridadDTO.Otp",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.TransaccionController",
+    "Method": "ModificarCargosExtra",
+    "RelativePath": "api/Transaccion/ModificarCargosExtra",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cargosExtra",
+        "Type": "DTO.TransaccionDTO.CargosExtra",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.TransaccionController",
+    "Method": "ObtenerCargosExtra",
+    "RelativePath": "api/Transaccion/ObtenerCargosExtra",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.TransaccionController",
+    "Method": "ObtenerInversiones",
+    "RelativePath": "api/Transaccion/ObtenerInversiones",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idCliente",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "tipo",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "fechaInicio",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "fechaFin",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.UsuarioController",
+    "Method": "ActivarDesactivarUsuario",
+    "RelativePath": "api/Usuario/ActivarDesactivarUsuario",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idUsuario",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "nuevoEstado",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.UsuarioController",
+    "Method": "BuscarUsuarioPorEmail",
+    "RelativePath": "api/Usuario/BuscarUsuarioPorEmail",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DTO.UsuarioDTO.Usuario",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.UsuarioController",
+    "Method": "CrearUsuario",
+    "RelativePath": "api/Usuario/CrearUsuario",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Tipo",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "IdSupervisor",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Roles",
+        "Type": "System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Nombre",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "PrimerApellido",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "SegundoApellido",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FechaNacimiento",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "CorreoElectronico",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Direccion",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FotoPerfil",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "DocumentoContrato",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Contrasena",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Saldo",
+        "Type": "System.Nullable\u00601[[System.Double, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Estado",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "FechaRegistro",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "UltimoAcceso",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.UsuarioController",
+    "Method": "EliminarUsuario",
+    "RelativePath": "api/Usuario/EliminarUsuario",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idUsuario",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.UsuarioController",
+    "Method": "ModificarRolesDeUsuario",
+    "RelativePath": "api/Usuario/ModificarRolesDeUsuario",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idUsuario",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "rol",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.UsuarioController",
+    "Method": "ModificarUsuario",
+    "RelativePath": "api/Usuario/ModificarUsuario/{email}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "nuevosDatos",
+        "Type": "DTO.UsuarioDTO.Usuario",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.UsuarioController",
+    "Method": "ObtenerAsesoresPorAdmin",
+    "RelativePath": "api/Usuario/ObtenerAsesoresPorAdmin",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idAdmin",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[DTO.UsuarioDTO.Usuario, DTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.UsuarioController",
+    "Method": "ObtenerAsesorPorCliente",
+    "RelativePath": "api/Usuario/ObtenerAsesorPorCliente",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idCliente",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.UsuarioController",
+    "Method": "ObtenerClientesPorAsesor",
+    "RelativePath": "api/Usuario/ObtenerClientesPorAsesor",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idAsesor",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[DTO.UsuarioDTO.Usuario, DTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.UsuarioController",
+    "Method": "ObtenerUsuario",
+    "RelativePath": "api/Usuario/ObtenerUsuario",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idUsuario",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DTO.UsuarioDTO.Usuario",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.UsuarioController",
+    "Method": "ObtenerUsuarios",
+    "RelativePath": "api/Usuario/ObtenerUsuarios",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[DTO.UsuarioDTO.Usuario, DTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Proyecto_Software_2.Controllers.UsuarioController",
+    "Method": "ValidarUsuario",
+    "RelativePath": "api/Usuario/ValidarUsuario",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "contrasena",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  }
+]

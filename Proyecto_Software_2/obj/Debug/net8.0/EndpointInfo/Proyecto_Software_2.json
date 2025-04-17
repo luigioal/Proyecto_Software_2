@@ -1,0 +1,985 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Proyecto_Software_2",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Seguridad/GenerarOTP": {
+      "post": {
+        "tags": [
+          "Seguridad"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Otp"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Otp"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Otp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Seguridad/ValidarOTP": {
+      "post": {
+        "tags": [
+          "Seguridad"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Otp"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Otp"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Otp"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Otp"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Otp"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Otp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Seguridad/CambiarContrasena": {
+      "put": {
+        "tags": [
+          "Seguridad"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CambioContrasenaDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CambioContrasenaDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CambioContrasenaDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Otp"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Otp"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Otp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Seguridad/GeneratePresignedUrl": {
+      "post": {
+        "tags": [
+          "Seguridad"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PresignRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PresignRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PresignRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Transaccion/ObtenerCargosExtra": {
+      "get": {
+        "tags": [
+          "Transaccion"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Transaccion/ModificarCargosExtra": {
+      "post": {
+        "tags": [
+          "Transaccion"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CargosExtra"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CargosExtra"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CargosExtra"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Transaccion/ObtenerInversiones": {
+      "get": {
+        "tags": [
+          "Transaccion"
+        ],
+        "parameters": [
+          {
+            "name": "idCliente",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "tipo",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fechaInicio",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "fechaFin",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Usuario/BuscarUsuarioPorEmail": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Usuario/ObtenerUsuarios": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Usuario"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Usuario"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Usuario"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Usuario/ObtenerAsesoresPorAdmin": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "name": "idAdmin",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Usuario"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Usuario"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Usuario"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Usuario/ObtenerClientesPorAsesor": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "name": "idAsesor",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Usuario"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Usuario"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Usuario"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Usuario/ObtenerAsesorPorCliente": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "name": "idCliente",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Usuario/ObtenerUsuario": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "name": "idUsuario",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Usuario/CrearUsuario": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Tipo": {
+                    "type": "string"
+                  },
+                  "IdSupervisor": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Roles": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "Nombre": {
+                    "type": "string"
+                  },
+                  "PrimerApellido": {
+                    "type": "string"
+                  },
+                  "SegundoApellido": {
+                    "type": "string"
+                  },
+                  "FechaNacimiento": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "CorreoElectronico": {
+                    "type": "string"
+                  },
+                  "Direccion": {
+                    "type": "string"
+                  },
+                  "FotoPerfil": {
+                    "type": "string"
+                  },
+                  "DocumentoContrato": {
+                    "type": "string"
+                  },
+                  "Contrasena": {
+                    "type": "string"
+                  },
+                  "Saldo": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "Estado": {
+                    "type": "boolean"
+                  },
+                  "FechaRegistro": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "UltimoAcceso": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "Id": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              },
+              "encoding": {
+                "Tipo": {
+                  "style": "form"
+                },
+                "IdSupervisor": {
+                  "style": "form"
+                },
+                "Roles": {
+                  "style": "form"
+                },
+                "Nombre": {
+                  "style": "form"
+                },
+                "PrimerApellido": {
+                  "style": "form"
+                },
+                "SegundoApellido": {
+                  "style": "form"
+                },
+                "FechaNacimiento": {
+                  "style": "form"
+                },
+                "CorreoElectronico": {
+                  "style": "form"
+                },
+                "Direccion": {
+                  "style": "form"
+                },
+                "FotoPerfil": {
+                  "style": "form"
+                },
+                "DocumentoContrato": {
+                  "style": "form"
+                },
+                "Contrasena": {
+                  "style": "form"
+                },
+                "Saldo": {
+                  "style": "form"
+                },
+                "Estado": {
+                  "style": "form"
+                },
+                "FechaRegistro": {
+                  "style": "form"
+                },
+                "UltimoAcceso": {
+                  "style": "form"
+                },
+                "Id": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Usuario/ModificarUsuario/{email}": {
+      "put": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Usuario"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Usuario"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Usuario"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Usuario/ModificarRolesDeUsuario": {
+      "put": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "name": "idUsuario",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "rol",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Usuario/EliminarUsuario": {
+      "delete": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "name": "idUsuario",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Usuario/ValidarUsuario": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contrasena",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Usuario/ActivarDesactivarUsuario": {
+      "put": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "name": "idUsuario",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "nuevoEstado",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CambioContrasenaDTO": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "nuevaContrasena": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CargosExtra": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "comisionTransaccion": {
+            "type": "number",
+            "format": "double"
+          },
+          "comisionAsesor": {
+            "type": "number",
+            "format": "double"
+          },
+          "comisionAsesorPerdida": {
+            "type": "number",
+            "format": "double"
+          },
+          "comisionAsesorGanancia": {
+            "type": "number",
+            "format": "double"
+          },
+          "impuestoSobreGanancia": {
+            "type": "number",
+            "format": "double"
+          },
+          "tarifaMinimaTransaccion": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Otp": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "otpCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "success": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PresignRequest": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "nullable": true
+          },
+          "contentType": {
+            "type": "string",
+            "nullable": true
+          },
+          "fileSize": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "userId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Usuario": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tipo": {
+            "type": "string",
+            "nullable": true
+          },
+          "idSupervisor": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "primerApellido": {
+            "type": "string",
+            "nullable": true
+          },
+          "segundoApellido": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "correoElectronico": {
+            "type": "string",
+            "nullable": true
+          },
+          "direccion": {
+            "type": "string",
+            "nullable": true
+          },
+          "fotoPerfil": {
+            "type": "string",
+            "nullable": true
+          },
+          "documentoContrato": {
+            "type": "string",
+            "nullable": true
+          },
+          "contrasena": {
+            "type": "string",
+            "nullable": true
+          },
+          "saldo": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "estado": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "fechaRegistro": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "ultimoAcceso": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

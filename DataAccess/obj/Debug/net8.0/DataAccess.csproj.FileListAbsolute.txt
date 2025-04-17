@@ -1,0 +1,16 @@
+C:\Repositories\Proyecto_Software_2\DataAccess\bin\Debug\net8.0\DataAccess.deps.json
+C:\Repositories\Proyecto_Software_2\DataAccess\bin\Debug\net8.0\DataAccess.dll
+C:\Repositories\Proyecto_Software_2\DataAccess\bin\Debug\net8.0\DataAccess.pdb
+C:\Repositories\Proyecto_Software_2\DataAccess\bin\Debug\net8.0\DTO.dll
+C:\Repositories\Proyecto_Software_2\DataAccess\bin\Debug\net8.0\DTO.pdb
+C:\Repositories\Proyecto_Software_2\DataAccess\obj\Debug\net8.0\DataAccess.csproj.AssemblyReference.cache
+C:\Repositories\Proyecto_Software_2\DataAccess\obj\Debug\net8.0\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Repositories\Proyecto_Software_2\DataAccess\obj\Debug\net8.0\DataAccess.AssemblyInfoInputs.cache
+C:\Repositories\Proyecto_Software_2\DataAccess\obj\Debug\net8.0\DataAccess.AssemblyInfo.cs
+C:\Repositories\Proyecto_Software_2\DataAccess\obj\Debug\net8.0\DataAccess.csproj.CoreCompileInputs.cache
+C:\Repositories\Proyecto_Software_2\DataAccess\obj\Debug\net8.0\DataAccess.sourcelink.json
+C:\Repositories\Proyecto_Software_2\DataAccess\obj\Debug\net8.0\DataAccess.csproj.Up2Date
+C:\Repositories\Proyecto_Software_2\DataAccess\obj\Debug\net8.0\DataAccess.dll
+C:\Repositories\Proyecto_Software_2\DataAccess\obj\Debug\net8.0\refint\DataAccess.dll
+C:\Repositories\Proyecto_Software_2\DataAccess\obj\Debug\net8.0\DataAccess.pdb
+C:\Repositories\Proyecto_Software_2\DataAccess\obj\Debug\net8.0\ref\DataAccess.dll
