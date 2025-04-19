@@ -54,5 +54,7 @@ namespace AppLogic.SeguridadAdmin
 
             return isValid;
         }
+
+
     }
 }

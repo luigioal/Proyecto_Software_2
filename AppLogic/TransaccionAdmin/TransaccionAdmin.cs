@@ -51,5 +51,55 @@ namespace AppLogic.TransaccionAdmin
                 return inversiones; 
 
         }
+
+        // Agregación de Validación de Saldo/Depositos /Paypal
+
+        public bool ValidarSaldoSuficiente(int idUsuario, double monto)
+        {
+            var usuarioAdmin = new AppLogic.UsuarioAdmin.UsuarioAdmin();
+            var usuario = usuarioAdmin.ReturnUsuarioById(idUsuario);
+
+            return usuario.Saldo >= monto;
+        }
+
+        public bool ProcesarRetiro(int idUsuario, double monto)
+        {
+            // Validar saldo
+            if (!ValidarSaldoSuficiente(idUsuario, monto))
+            {
+                return false;
+            }
+
+            // Actualizar saldo
+            var usuarioAdmin = new AppLogic.UsuarioAdmin.UsuarioAdmin();
+            var usuario = usuarioAdmin.ReturnUsuarioById(idUsuario);
+            usuario.Saldo -= monto;
+
+            usuarioAdmin.UpdateUsuario(usuario);
+
+            // Registrar transacción
+            // Implementación de registro en base de datos
+
+            return true;
+        }
+
+        public bool ProcesarDeposito(int idUsuario, double monto)
+        {
+            if (monto <= 0 || monto > 10000) // para veficar limites maximos: Límite de $10,000
+            {
+                return false;
+            }
+            // Actualizar saldo
+            var usuarioAdmin = new AppLogic.UsuarioAdmin.UsuarioAdmin();
+            var usuario = usuarioAdmin.ReturnUsuarioById(idUsuario);
+            usuario.Saldo += monto;
+
+            usuarioAdmin.UpdateUsuario(usuario);
+
+            // Registrar transacción
+            // Implementación de registro en base de datos
+
+            return true;
+        }
     }
 }

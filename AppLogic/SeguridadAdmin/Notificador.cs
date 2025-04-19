@@ -112,5 +112,65 @@ namespace AppLogic.SeguridadAdmin
 
             await EnviarNotificacionAsync(notificacion);
         }
+
+        // Añadir estos métodos a la clase Notificador existente
+
+        public async Task EnviarNotificacionDeposito(string email, double monto)
+        {
+            string asunto = "Confirmación de depósito";
+            string cuerpo = $@"
+    <html>
+    <body style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;'>
+        <div style='padding: 20px; background-color: #f7f7f7; border-radius: 5px;'>
+            <h2 style='color: #333;'>Depósito Confirmado</h2>
+            <p>Se ha realizado un depósito en su cuenta por el monto de: <strong>${monto}</strong></p>
+            <p>Fecha: {DateTime.Now.ToString("dd/MM/yyyy HH:mm")}</p>
+            <p>Si usted no realizó esta operación, por favor contacte a soporte inmediatamente.</p>
+        </div>
+    </body>
+    </html>";
+
+            await EnviarCorreoAsync(email, asunto, cuerpo);
+        }
+
+        public async Task EnviarNotificacionRetiro(string email, double monto)
+        {
+            string asunto = "Confirmación de retiro";
+            string cuerpo = $@"
+    <html>
+    <body style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;'>
+        <div style='padding: 20px; background-color: #f7f7f7; border-radius: 5px;'>
+            <h2 style='color: #333;'>Retiro Confirmado</h2>
+            <p>Se ha realizado un retiro de su cuenta por el monto de: <strong>${monto}</strong></p>
+            <p>Fecha: {DateTime.Now.ToString("dd/MM/yyyy HH:mm")}</p>
+            <p>Si usted no autorizó esta operación, por favor contacte a soporte inmediatamente.</p>
+        </div>
+    </body>
+    </html>";
+
+            await EnviarCorreoAsync(email, asunto, cuerpo);
+        }
+
+        public async Task EnviarNotificacionTransaccion(string email, string tipoTransaccion, double monto, string detalles)
+        {
+            string asunto = $"Confirmación de {tipoTransaccion}";
+            string cuerpo = $@"
+    <html>
+    <body style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;'>
+        <div style='padding: 20px; background-color: #f7f7f7; border-radius: 5px;'>
+            <h2 style='color: #333;'>{tipoTransaccion} Realizada</h2>
+            <p>Se ha realizado una operación en su cuenta:</p>
+            <p><strong>Tipo:</strong> {tipoTransaccion}</p>
+            <p><strong>Monto:</strong> ${monto}</p>
+            <p><strong>Detalles:</strong> {detalles}</p>
+            <p><strong>Fecha:</strong> {DateTime.Now.ToString("dd/MM/yyyy HH:mm")}</p>
+            <p>Si usted no realizó esta operación, contacte a soporte inmediatamente.</p>
+        </div>
+    </body>
+    </html>";
+
+            await EnviarCorreoAsync(email, asunto, cuerpo);
+        }
+
     }
 }
