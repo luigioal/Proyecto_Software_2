@@ -107,5 +107,17 @@ namespace AppLogic.UsuarioAdmin
         {
             return this.ReturnClientesPorAsesor(idAsesor).Count();
         }
+
+
+        public double GetUserBalance(int idUsuario)
+        {
+            return _usuarioCrud.RetrieveBalanceById(idUsuario);
+        }
+
+        public bool UpdateUserBalance(int idUsuario, double nuevoSaldo)
+        {
+            return _usuarioCrud.UpdateBalance(idUsuario, nuevoSaldo);
+        }
+
     }
 }

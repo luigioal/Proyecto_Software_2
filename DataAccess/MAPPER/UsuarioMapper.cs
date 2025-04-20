@@ -6,7 +6,32 @@ using System.Net.Http.Headers;
 namespace DataAccess.MAPPER
 {
     public class UsuarioMapper : ICrudQueries, IObjectMapper
+
+
+
     {
+
+        public SqlOperation GetRetrieveBalanceQuery(int Id)
+        {
+            SqlOperation operation = new SqlOperation();
+            operation.procedureName = "SP_SELECT_USER_BALANCE_BY_ID";
+            operation.AddIntegerParameter("UsuarioID", Id);
+
+            return operation;
+        }
+
+        public SqlOperation GetUpdateBalanceQuery(int Id, double nuevoSaldo)
+        {
+            SqlOperation operation = new SqlOperation();
+            operation.procedureName = "SP_UPDATE_USER_BALANCE_BY_ID";
+            operation.AddIntegerParameter("UsuarioID", Id);
+            operation.AddDoubleParameter("NuevoSaldo", nuevoSaldo);
+
+            return operation;
+        }
+
+
+
         // CREATE operation
         public SqlOperation GetCreateQuery(BaseClass entity)
         {
