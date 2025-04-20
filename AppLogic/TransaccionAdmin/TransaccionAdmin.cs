@@ -85,7 +85,7 @@ namespace AppLogic.TransaccionAdmin
 
         public bool ProcesarDeposito(int idUsuario, double monto)
         {
-            if (monto <= 0 || monto > 10000) // para veficar limites maximos: Límite de $10,000
+            if (monto <= 0 || monto > 10000) // para veficar limites maxi: Límite de $10,000
             {
                 return false;
             }
