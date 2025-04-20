@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using DTO.UsuarioDTO;
 using AppLogic.UsuarioAdmin;
-using DataAccess.CRUD;
 
 namespace Proyecto_Software_2.Controllers
 {
@@ -19,6 +18,44 @@ namespace Proyecto_Software_2.Controllers
         {
             _admin = new UsuarioAdmin();
         }
+
+
+        [HttpGet]
+        public IActionResult ObtenerBalancePorUsuarioID(int idUsuario)
+        {
+            try
+            {
+                var balance = _admin.GetUserBalance(idUsuario);
+                return Ok(new { UsuarioID = idUsuario, Balance = balance });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public IActionResult ModificarBalancePorUsuarioID([FromBody] BalanceUpdate balanceUpdate)
+        {
+            try
+            {
+                bool result = _admin.UpdateUserBalance(balanceUpdate.UsuarioID, balanceUpdate.NuevoSaldo);
+
+                if (result)
+                {
+                    return Ok(new { UsuarioID = balanceUpdate.UsuarioID, NuevoSaldo = balanceUpdate.NuevoSaldo, Mensaje = "Balance actualizado exitosamente" });
+                }
+                else
+                {
+                    return BadRequest("No se pudo actualizar el balance");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
         [HttpPost]
@@ -40,10 +77,9 @@ namespace Proyecto_Software_2.Controllers
         }
 
         [HttpGet]
-        public List<Usuario> ObtenerAsesoresPorAdmin(int idAdmin)
+        public List<Usuario> ObtenerAsesores()
         {
-
-            return _admin.ReturnAsesoresPorAdmin(idAdmin);
+            return _admin.ReturnAsesores();
         }
 
         [HttpGet]
@@ -51,33 +87,6 @@ namespace Proyecto_Software_2.Controllers
         {
             return _admin.ReturnClientesPorAsesor(idAsesor);
         }
-
-        [HttpGet]
-        public IActionResult ObtenerAsesorPorCliente(int idCliente)
-        {
-            try
-            {
-                var cliente = _admin.ReturnUsuarioById(idCliente);
-
-                if (cliente == null || cliente.Roles == null || !cliente.Roles.Contains("Cliente"))
-                    return BadRequest("El usuario especificado no es un cliente válido.");
-
-                if (!cliente.IdSupervisor.HasValue)
-                    return NotFound("Este cliente no tiene un asesor asignado.");
-
-                var asesor = _admin.ReturnUsuarioById(cliente.IdSupervisor.Value);
-
-                if (asesor == null || asesor.Roles == null || !asesor.Roles.Contains("Asesor"))
-                    return NotFound("No se encontró un asesor válido para este cliente.");
-
-                return Ok(asesor);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error al obtener asesor: {ex.Message}");
-            }
-        }
-
 
         [HttpGet]
         public Usuario ObtenerUsuario(int idUsuario)
@@ -99,49 +108,20 @@ namespace Proyecto_Software_2.Controllers
             }
         }
 
-     [HttpPut("{email}")]
-public IActionResult ModificarUsuario(string email, [FromBody] Usuario nuevosDatos)
-{
-    if (string.IsNullOrEmpty(email))
-        return BadRequest("Se requiere un correo electrónico válido.");
-
-    try
-    {
-        var usuarioExistente = _admin.ReturnUsuarioByEmail(email);
-        if (usuarioExistente == null)
-            return NotFound("Usuario no encontrado con el correo proporcionado.");
-
-                // Validación del nuevo asesor (si se proporciona)
-                if (nuevosDatos.IdSupervisor.HasValue)
-                {
-                    var asesor = _admin.ReturnUsuarioById(nuevosDatos.IdSupervisor.Value);
-                    if (asesor == null || asesor.Roles == null || !asesor.Roles.Contains("Asesor"))
-                    {
-                        return BadRequest("El asesor especificado no existe o no tiene el rol adecuado.");
-                    }
-
-                    usuarioExistente.IdSupervisor = nuevosDatos.IdSupervisor;
-                }
-                
-
-                // Reemplazar sólo los datos que vienen nuevos
-        usuarioExistente.Nombre = nuevosDatos.Nombre ?? usuarioExistente.Nombre;
-        usuarioExistente.PrimerApellido = nuevosDatos.PrimerApellido ?? usuarioExistente.PrimerApellido;
-        usuarioExistente.SegundoApellido = nuevosDatos.SegundoApellido ?? usuarioExistente.SegundoApellido;
-        usuarioExistente.Direccion = nuevosDatos.Direccion ?? usuarioExistente.Direccion;
-        usuarioExistente.Contrasena = string.IsNullOrEmpty(nuevosDatos.Contrasena) ? usuarioExistente.Contrasena : nuevosDatos.Contrasena;
-
-
-        _admin.UpdateUsuario(usuarioExistente);
-        return Ok(new { mensaje = "Usuario actualizado correctamente" });
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(500, $"Error al actualizar usuario: {ex.Message}");
-    }
-}
-
-
+        [HttpPut]
+        public IActionResult ModificarUsuario([FromBody] Usuario usuario)
+        {
+            Console.WriteLine(usuario);
+            try
+            {
+                _admin.UpdateUsuario(usuario);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPut]
         public IActionResult ModificarRolesDeUsuario([FromQuery]int idUsuario, [FromQuery]string rol)
@@ -188,7 +168,7 @@ public IActionResult ModificarUsuario(string email, [FromBody] Usuario nuevosDat
         }
 
         [HttpPut]
-        public IActionResult ActivarDesactivarUsuario([FromQuery]int idUsuario, [FromQuery] bool nuevoEstado)
+        public IActionResult ActivarDesactivarUsuario([FromQuery] int idUsuario, [FromQuery] bool nuevoEstado)
         {
             try
             {

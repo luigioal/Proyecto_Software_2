@@ -1,4 +1,4 @@
-﻿using AppLogic.FinanzaAdmin;
+﻿using AppLogic.ConnectorsAdmin;
 using DataAccess.CRUD;
 using DTO;
 using DTO.TransaccionDTO;

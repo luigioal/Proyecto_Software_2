@@ -32,11 +32,22 @@ namespace AppLogic.UsuarioAdmin
             return usuarios;
         }
 
-        public List<Usuario> ReturnAsesoresPorAdmin(int idAdmin)
+        public List<Usuario> ReturnAsesores()
         {
-            List<Usuario> asesores;
 
-            asesores = _usuarioCrud.RetrieveAll<Usuario>(idAdmin);
+            List<Usuario> usuarios;
+
+            usuarios = _usuarioCrud.RetrieveAll<Usuario>();
+
+            List<Usuario> asesores  = new List<Usuario>();
+
+            foreach (var user in usuarios)
+            {
+                if (user.Roles.Contains("Asesor"))
+                {
+                    asesores.Add(user);
+                }
+            }
 
             return asesores;
         }
@@ -91,5 +102,22 @@ namespace AppLogic.UsuarioAdmin
             _usuarioCrud.Update(usuario);
             return true;
         }
+
+        public int ReturnNumeroClientes(int idAsesor)
+        {
+            return this.ReturnClientesPorAsesor(idAsesor).Count();
+        }
+
+
+        public double GetUserBalance(int idUsuario)
+        {
+            return _usuarioCrud.RetrieveBalanceById(idUsuario);
+        }
+
+        public bool UpdateUserBalance(int idUsuario, double nuevoSaldo)
+        {
+            return _usuarioCrud.UpdateBalance(idUsuario, nuevoSaldo);
+        }
+
     }
 }
