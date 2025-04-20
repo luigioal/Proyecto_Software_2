@@ -20,6 +20,44 @@ namespace Proyecto_Software_2.Controllers
         }
 
 
+        [HttpGet]
+        public IActionResult ObtenerBalancePorUsuarioID(int idUsuario)
+        {
+            try
+            {
+                var balance = _admin.GetUserBalance(idUsuario);
+                return Ok(new { UsuarioID = idUsuario, Balance = balance });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public IActionResult ModificarBalancePorUsuarioID([FromBody] BalanceUpdate balanceUpdate)
+        {
+            try
+            {
+                bool result = _admin.UpdateUserBalance(balanceUpdate.UsuarioID, balanceUpdate.NuevoSaldo);
+
+                if (result)
+                {
+                    return Ok(new { UsuarioID = balanceUpdate.UsuarioID, NuevoSaldo = balanceUpdate.NuevoSaldo, Mensaje = "Balance actualizado exitosamente" });
+                }
+                else
+                {
+                    return BadRequest("No se pudo actualizar el balance");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
         [HttpPost]
         public Usuario BuscarUsuarioPorEmail(string email)
         {

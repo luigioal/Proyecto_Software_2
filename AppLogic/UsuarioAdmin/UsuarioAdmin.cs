@@ -91,5 +91,17 @@ namespace AppLogic.UsuarioAdmin
             _usuarioCrud.Update(usuario);
             return true;
         }
+
+
+        public double GetUserBalance(int idUsuario)
+        {
+            return _usuarioCrud.RetrieveBalanceById(idUsuario);
+        }
+
+        public bool UpdateUserBalance(int idUsuario, double nuevoSaldo)
+        {
+            return _usuarioCrud.UpdateBalance(idUsuario, nuevoSaldo);
+        }
+
     }
 }
