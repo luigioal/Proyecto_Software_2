@@ -1,4 +1,4 @@
-﻿using AppLogic.FinanzaAdmin;
+﻿using AppLogic.ConnectorsAdmin;
 using DataAccess.CRUD;
 using DTO;
 using DTO.TransaccionDTO;
@@ -49,6 +49,11 @@ namespace AppLogic.TransaccionAdmin
                 });
 
                 return inversiones; 
+
+        }
+
+        public void DoVenderInversion(Inversion inversion)
+        {
 
         }
     }

@@ -66,6 +66,20 @@ namespace Proyecto_Software_2.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        public IActionResult VenderInversion([FromBody] Inversion inversion)
+        {
+            try
+            {
+                _admin.DoVenderInversion(inversion);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
 

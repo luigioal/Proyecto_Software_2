@@ -77,10 +77,9 @@ namespace Proyecto_Software_2.Controllers
         }
 
         [HttpGet]
-        public List<Usuario> ObtenerAsesoresPorAdmin(int idAdmin)
+        public List<Usuario> ObtenerAsesores()
         {
-
-            return _admin.ReturnAsesoresPorAdmin(idAdmin);
+            return _admin.ReturnAsesores();
         }
 
         [HttpGet]
@@ -169,7 +168,7 @@ namespace Proyecto_Software_2.Controllers
         }
 
         [HttpPut]
-        public IActionResult ActivarDesactivarUsuario([FromQuery]int idUsuario, [FromQuery] bool nuevoEstado)
+        public IActionResult ActivarDesactivarUsuario([FromQuery] int idUsuario, [FromQuery] bool nuevoEstado)
         {
             try
             {
