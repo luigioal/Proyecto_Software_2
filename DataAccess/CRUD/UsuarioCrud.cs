@@ -119,5 +119,35 @@ namespace DataAccess.CRUD
             SqlOperation operation = mapper.GetActivateDeactivateQuery(idUsuario, nuevoEstado);
             dao.ExecuteStoredProcedureWithQuery(operation);
         }
+
+        public double RetrieveBalanceById(int userId)
+        {
+            SqlOperation operation = mapper.GetRetrieveBalanceQuery(userId);
+
+            List<Dictionary<string, object>> dataResults = dao.ExecuteStoredProcedureWithQuery(operation);
+
+            if (dataResults.Count > 0 && dataResults[0].ContainsKey("Balance"))
+            {
+                return Convert.ToDouble(dataResults[0]["Balance"]);
+            }
+
+            return 0;
+        }
+
+        public bool UpdateBalance(int userId, double nuevoSaldo)
+        {
+            SqlOperation operation = mapper.GetUpdateBalanceQuery(userId, nuevoSaldo);
+
+            try
+            {
+                dao.ExcecuteStoredProcedure(operation);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
     }
 }

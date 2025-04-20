@@ -52,8 +52,8 @@ namespace DataAccess.DAO
             command.CommandText = operation.procedureName;
 
             //agregar parametros
-            foreach (var p in operation.parameters)
-            {
+            foreach (var p in operation.parameters) 
+            { 
                 command.Parameters.Add(p);
             }
 
@@ -67,11 +67,10 @@ namespace DataAccess.DAO
         }
 
         //R ead
-        public List<Dictionary<string, object>> ExecuteStoredProcedureWithQuery(SqlOperation operation)
-        {
+        public List<Dictionary<string, object>> ExecuteStoredProcedureWithQuery (SqlOperation operation) {
 
             List<Dictionary<string, object>> listResults = new List<Dictionary<string, object>>();
-
+            
             SqlConnection conn = new SqlConnection(_connectionString);
             SqlCommand command = new SqlCommand();
             command.Connection = conn;
@@ -91,15 +90,15 @@ namespace DataAccess.DAO
             SqlDataReader reader = command.ExecuteReader();
 
             //recorrer el reader y construir el diccionario
-            if (reader.HasRows)
+            if (reader.HasRows) 
             {
                 while (reader.Read())
                 {
-                    Dictionary<string, object> dictObj = new Dictionary<string, object>();
+                    Dictionary<string,object> dictObj = new Dictionary<string,object>();
 
                     //Construir matriz fila por fila
 
-                    for (var fieldCount = 0; fieldCount < reader.FieldCount; fieldCount++)
+                    for (var fieldCount = 0; fieldCount < reader.FieldCount; fieldCount++) 
                     {
                         dictObj.Add(reader.GetName(fieldCount), reader.GetValue(fieldCount));
                     }
