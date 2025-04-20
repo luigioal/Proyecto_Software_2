@@ -51,5 +51,10 @@ namespace AppLogic.TransaccionAdmin
                 return inversiones; 
 
         }
+
+        public void DoVenderInversion(Inversion inversion)
+        {
+
+        }
     }
 }

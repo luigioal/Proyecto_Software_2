@@ -40,10 +40,9 @@ namespace Proyecto_Software_2.Controllers
         }
 
         [HttpGet]
-        public List<Usuario> ObtenerAsesoresPorAdmin(int idAdmin)
+        public List<Usuario> ObtenerAsesores()
         {
-
-            return _admin.ReturnAsesoresPorAdmin(idAdmin);
+            return _admin.ReturnAsesores();
         }
 
         [HttpGet]
@@ -100,46 +99,46 @@ namespace Proyecto_Software_2.Controllers
         }
 
      [HttpPut("{email}")]
-public IActionResult ModificarUsuario(string email, [FromBody] Usuario nuevosDatos)
-{
-    if (string.IsNullOrEmpty(email))
-        return BadRequest("Se requiere un correo electrónico válido.");
-
-    try
+    public IActionResult ModificarUsuario(string email, [FromBody] Usuario nuevosDatos)
     {
-        var usuarioExistente = _admin.ReturnUsuarioByEmail(email);
-        if (usuarioExistente == null)
-            return NotFound("Usuario no encontrado con el correo proporcionado.");
+        if (string.IsNullOrEmpty(email))
+            return BadRequest("Se requiere un correo electrónico válido.");
 
-                // Validación del nuevo asesor (si se proporciona)
-                if (nuevosDatos.IdSupervisor.HasValue)
-                {
-                    var asesor = _admin.ReturnUsuarioById(nuevosDatos.IdSupervisor.Value);
-                    if (asesor == null || asesor.Roles == null || !asesor.Roles.Contains("Asesor"))
+        try
+        {
+            var usuarioExistente = _admin.ReturnUsuarioByEmail(email);
+            if (usuarioExistente == null)
+                return NotFound("Usuario no encontrado con el correo proporcionado.");
+
+                    // Validación del nuevo asesor (si se proporciona)
+                    if (nuevosDatos.IdSupervisor.HasValue)
                     {
-                        return BadRequest("El asesor especificado no existe o no tiene el rol adecuado.");
-                    }
+                        var asesor = _admin.ReturnUsuarioById(nuevosDatos.IdSupervisor.Value);
+                        if (asesor == null || asesor.Roles == null || !asesor.Roles.Contains("Asesor"))
+                        {
+                            return BadRequest("El asesor especificado no existe o no tiene el rol adecuado.");
+                        }
 
-                    usuarioExistente.IdSupervisor = nuevosDatos.IdSupervisor;
-                }
+                        usuarioExistente.IdSupervisor = nuevosDatos.IdSupervisor;
+                    }
                 
 
-                // Reemplazar sólo los datos que vienen nuevos
-        usuarioExistente.Nombre = nuevosDatos.Nombre ?? usuarioExistente.Nombre;
-        usuarioExistente.PrimerApellido = nuevosDatos.PrimerApellido ?? usuarioExistente.PrimerApellido;
-        usuarioExistente.SegundoApellido = nuevosDatos.SegundoApellido ?? usuarioExistente.SegundoApellido;
-        usuarioExistente.Direccion = nuevosDatos.Direccion ?? usuarioExistente.Direccion;
-        usuarioExistente.Contrasena = string.IsNullOrEmpty(nuevosDatos.Contrasena) ? usuarioExistente.Contrasena : nuevosDatos.Contrasena;
+                    // Reemplazar sólo los datos que vienen nuevos
+            usuarioExistente.Nombre = nuevosDatos.Nombre ?? usuarioExistente.Nombre;
+            usuarioExistente.PrimerApellido = nuevosDatos.PrimerApellido ?? usuarioExistente.PrimerApellido;
+            usuarioExistente.SegundoApellido = nuevosDatos.SegundoApellido ?? usuarioExistente.SegundoApellido;
+            usuarioExistente.Direccion = nuevosDatos.Direccion ?? usuarioExistente.Direccion;
+            usuarioExistente.Contrasena = string.IsNullOrEmpty(nuevosDatos.Contrasena) ? usuarioExistente.Contrasena : nuevosDatos.Contrasena;
 
 
-        _admin.UpdateUsuario(usuarioExistente);
-        return Ok(new { mensaje = "Usuario actualizado correctamente" });
+            _admin.UpdateUsuario(usuarioExistente);
+            return Ok(new { mensaje = "Usuario actualizado correctamente" });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error al actualizar usuario: {ex.Message}");
+        }
     }
-    catch (Exception ex)
-    {
-        return StatusCode(500, $"Error al actualizar usuario: {ex.Message}");
-    }
-}
 
 
 
@@ -188,7 +187,7 @@ public IActionResult ModificarUsuario(string email, [FromBody] Usuario nuevosDat
         }
 
         [HttpPut]
-        public IActionResult ActivarDesactivarUsuario([FromQuery]int idUsuario, [FromQuery] bool nuevoEstado)
+        public IActionResult ActivarDesactivarUsuario([FromQuery] int idUsuario, [FromQuery] bool nuevoEstado)
         {
             try
             {
