@@ -1,8 +1,9 @@
-using Amazon.Extensions.NETCore.Setup;
+﻿using Amazon.Extensions.NETCore.Setup;
 using Amazon.Runtime;
 using Amazon.S3;
 using AppLogic.ConnectorsAdmin;
 using Microsoft.AspNetCore.Builder;
+
 
 namespace Proyecto_Software_2
 {
@@ -13,18 +14,25 @@ namespace Proyecto_Software_2
             var builder = WebApplication.CreateBuilder(args);
             var awsOptions = builder.Configuration.GetAWSOptions();
 
-            // Add AWS AppConfig configuration
+            // Configuración de credenciales AWS
             awsOptions.Credentials = new BasicAWSCredentials(
                 builder.Configuration["AWS:AccessKey"],
-                builder.Configuration["AWS:SecretKey"]);
+                builder.Configuration["AWS:SecretKey"]
+            );
             builder.Services.AddDefaultAWSOptions(awsOptions);
             builder.Services.AddAWSService<IAmazonS3>();
 
             // Add services to the container.
             builder.Services.AddControllers();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+
+            // Registrar PayPalConnector
+            builder.Services.AddScoped<PayPalConnector>();
+
 
             // Registrar AWS S3 Connector
             builder.Services.AddSingleton<AwsConnector>();

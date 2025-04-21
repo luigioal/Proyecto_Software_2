@@ -6,6 +6,12 @@ using AppLogic.UsuarioAdmin;
 using DTO.UsuarioDTO;
 using Microsoft.AspNetCore.Cors;
 using AppLogic.SeguridadAdmin;
+using DTO.PayPalDTO;
+using System.Runtime.Intrinsics;
+using System.Text.Json.Nodes;
+using Amazon.Runtime.Internal.Transform;
+using System.Text;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Proyecto_Software_2.Controllers
 {
@@ -14,13 +20,22 @@ namespace Proyecto_Software_2.Controllers
     [ApiController]
     public class TransaccionController : ControllerBase
     {
+        private string PaypalClientId { get; set; } = "";
+        private string PaypalSecret { get; set; } = "";
+        private string PaypalUrl { get; set; } = "";
+
         private TransaccionAdmin _admin;
         private SeguridadAdministrador _seguridadAdmin;
         private Notificador _notificador;
         private readonly UsuarioAdministrador _usuarioAdmin;
 
-        public TransaccionController(TransaccionAdmin transaccionAdmin, SeguridadAdministrador seguridadAdmin, Notificador notificador, UsuarioAdministrador usuarioAdmin)
+      
+        public TransaccionController(IConfiguration configuration, TransaccionAdmin transaccionAdmin, SeguridadAdministrador seguridadAdmin, Notificador notificador, UsuarioAdministrador usuarioAdmin)
         {
+            PaypalClientId = configuration["PayPalSettings:ClientId"]!;
+            PaypalSecret = configuration["PayPalSettings:Secret"]!; 
+            PaypalUrl = configuration["PayPalSettings:Url"]!; 
+
             _admin = transaccionAdmin;
             _seguridadAdmin = seguridadAdmin;
             _notificador = notificador;
@@ -28,9 +43,58 @@ namespace Proyecto_Software_2.Controllers
         }
 
 
+       /*public IActionResult Index()
+         {
+                return View();
+        }*/
+
+
+        /*private async Task<string> Token()
+        {
+            return await GetPayPalAccessToken();
+        }*/
+
+        private async Task<string> GetPayPalAccessToken()
+        {
+            string accessToken = "";
+
+            string url = PaypalUrl + "/v1/oauth2/token";
+
+            using (var client = new HttpClient())
+            {
+                string credentials64 =
+                    Convert.ToBase64String(Encoding.UTF8.GetBytes(PaypalClientId + ":" + PaypalSecret));
+
+                client.DefaultRequestHeaders.Add("Authorization", "Basic" + credentials64);
+
+                var requestMessage = new HttpRequestMessage(HttpMethod.Post, url);
+                requestMessage.Content = new StringContent("grand_type=client_credentials", null
+                    , "application/x-www-form-urlencoded");
+
+                var httpResponse = await client.SendAsync(requestMessage);
+                
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    var strResponse = await httpResponse.Content.ReadAsStringAsync();
+
+                    var jsonResponse = JsonNode.Parse(strResponse);
+                    if (jsonResponse != null) 
+                    
+                    {
+                        accessToken = jsonResponse["access_token"]?.ToString() ?? ""; 
+                    }
+                }
+            
+            }
+
+
+            return accessToken;
+        }
+     
+
         #region Endpoints para Depósitos 
         [HttpPost("deposito/paypal/iniciar")]
-        public async Task<IActionResult> IniciarDepositoPayPal([FromBody] DepositoPayPalRequest request)
+        public async Task<IActionResult> IniciarDepositoPayPal([FromBody] ConfirmarDepositoRequest request)
         {
             try
             {
@@ -89,17 +153,17 @@ namespace Proyecto_Software_2.Controllers
         }
         #endregion
 
-        #region Endpoints para Retiros (RF20/RF21)
+        #region Endpoints para Retiros 
         [HttpPost("retiro/solicitar")]
-        public async Task<IActionResult> SolicitarRetiro([FromBody] SolicitudRetiroRequest request)
+        public async Task<IActionResult> SolicitarRetiro([FromBody] SolicitudRetiroDTO request)
         {
             try
             {
-                // 1. Validar saldo suficiente (RF20)
+                // 1. Validar saldo suficiente 
                 if (!_admin.ValidarSaldoSuficiente(request.UsuarioId, request.Monto))
                     return BadRequest("Saldo insuficiente para esta transacción");
 
-                // 2. Generar y enviar OTP (RF21)
+                // 2. Generar y enviar OTP 
                 var usuario = _usuarioAdmin.ReturnUsuarioById(request.UsuarioId);
                 var otp = await _seguridadAdmin.GenerateOTP(usuario.CorreoElectronico);
 

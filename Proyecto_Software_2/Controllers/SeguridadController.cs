@@ -100,21 +100,6 @@ namespace Proyecto_Software_2.Controllers
             });
         }
 
-        [HttpPost]
-        public IActionResult GenerarUrlAws([FromBody] PresignRequest request)
-        {
-            if (request.FileName != null)
-            { 
-                PresignedUrlResponse response = _seguridadAdmin.GetPresignedURL(request);
-
-                if(response.presignedUrl == null)
-                {
-                    return BadRequest("No se pudo generar el URL");
-                }
-                return Ok(response);
-            }
-
-            return BadRequest("Invalid file type");
-        }
+        
     }
 }

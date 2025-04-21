@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DTO.TransaccionDTO
+namespace DTO.PayPalDTO
 {
-    public class ConfirmarDepositoRequest
+    public class ConfirmarRetiroRequest
     {
         public int UsuarioId { get; set; }
         public double Monto { get; set; }
-        public string PayPalTransactionId { get; set; }
         public string OTP { get; set; }
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DTO.TransaccionDTO
+namespace DTO.PayPalDTO
 {
-    public class SolicitudRetiroRequest
+    public class SolicitudRetiroDTO
     {
         public int UsuarioId { get; set; }
         public double Monto { get; set; }

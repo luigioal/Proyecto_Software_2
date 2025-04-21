@@ -25,7 +25,6 @@ namespace AppLogic.TransaccionAdmin
         private readonly Notificador _notificador;
         private readonly SeguridadAdministrador _seguridadAdmin;
         private readonly UsuarioAdministrador _usuarioAdmin;
-        private readonly AwsConnector _awsConnector;
         private readonly IConfiguration _config;
 
         public TransaccionAdmin(
@@ -41,8 +40,7 @@ namespace AppLogic.TransaccionAdmin
             _financeConnector = financeConnector ?? new FinanceConnector();
             _paypalConnector = paypalConnector ?? new PayPalConnector(config);
             _notificador = notificador ?? new Notificador();
-            _awsConnector = new AwsConnector(new AmazonS3Client(),config);
-            _seguridadAdmin = seguridadAdmin ?? new SeguridadAdministrador(_notificador,_awsConnector);
+            _seguridadAdmin = seguridadAdmin ?? new SeguridadAdministrador(_notificador);
             _usuarioAdmin = new UsuarioAdministrador();
         }
 
@@ -83,7 +81,7 @@ namespace AppLogic.TransaccionAdmin
                     return new ResultadoTransaccion { Exito = false, Mensaje = "El monto debe ser mayor a cero" };
 
                 // 1. Validar transacción PayPal
-                var paypalValido = await _paypalConnector.VerifyPaymentAsync(transactionId);
+                var paypalValido = await _paypalConnector.VerificarDepositoAsync(transactionId);
                 if (!paypalValido)
                     return new ResultadoTransaccion { Exito = false, Mensaje = "Transacción PayPal no válida" };
 
@@ -111,7 +109,7 @@ namespace AppLogic.TransaccionAdmin
                     Estado = "Completado"
                 });
 
-                // 6. Enviar notificación (RF27)
+                // 6. Enviar notificación 
                 await _notificador.EnviarNotificacionTransaccion(
                     usuario.CorreoElectronico,
                     "Depósito PayPal",
@@ -216,6 +214,7 @@ namespace AppLogic.TransaccionAdmin
             return usuario?.Saldo >= monto;
         }
         #endregion
+
 
     }
 }
