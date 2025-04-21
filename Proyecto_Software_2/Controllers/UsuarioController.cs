@@ -12,11 +12,11 @@ namespace Proyecto_Software_2.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        private UsuarioAdmin _admin;
+        private UsuarioAdministrador _admin;
 
         public UsuarioController()
         {
-            _admin = new UsuarioAdmin();
+            _admin = new UsuarioAdministrador();
         }
 
 
@@ -62,7 +62,7 @@ namespace Proyecto_Software_2.Controllers
         public Usuario BuscarUsuarioPorEmail(string email)
         {
             
-            UsuarioAdmin admin = new UsuarioAdmin();
+            UsuarioAdministrador admin = new UsuarioAdministrador();
             return admin.ReturnUsuarioByEmail(email);
 
             
@@ -156,7 +156,7 @@ namespace Proyecto_Software_2.Controllers
         [HttpPost]
         public Boolean ValidarUsuario(string email, string contrasena)
         {
-            UsuarioAdmin admin = new UsuarioAdmin();
+            UsuarioAdministrador admin = new UsuarioAdministrador();
             var usuario = admin.ReturnUsuarioByEmail(email);
 
             if (usuario != null && usuario.Contrasena == contrasena && usuario.Estado == true)

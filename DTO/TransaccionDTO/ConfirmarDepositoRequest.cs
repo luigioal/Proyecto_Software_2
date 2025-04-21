@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DTO.TransaccionDTO
 {
-    public class ConfirmacionRetiroDTO
+    public class ConfirmarDepositoRequest
     {
-        public int IdUsuario { get; set; }
+        public int UsuarioId { get; set; }
         public double Monto { get; set; }
+        public string PayPalTransactionId { get; set; }
         public string OTP { get; set; }
     }
-
 }

@@ -14,13 +14,13 @@ namespace Proyecto_Software_2.Controllers
     [ApiController]
     public class SeguridadController : ControllerBase
     {
-        private readonly SeguridadAdmin _seguridadAdmin;
-        private readonly UsuarioAdmin _usuarioAdmin;
+        private readonly SeguridadAdministrador _seguridadAdmin;
+        private readonly UsuarioAdministrador _usuarioAdmin;
 
-        public SeguridadController(SeguridadAdmin seguridadAdmin, IAmazonS3 s3Client, IConfiguration config)
+        public SeguridadController(SeguridadAdministrador seguridadAdmin, IAmazonS3 s3Client, IConfiguration config)
         {
             _seguridadAdmin = seguridadAdmin;
-            _usuarioAdmin = new UsuarioAdmin();
+            _usuarioAdmin = new UsuarioAdministrador();
         }
 
         [HttpPost]

@@ -15,78 +15,142 @@ namespace Proyecto_Software_2.Controllers
     public class TransaccionController : ControllerBase
     {
         private TransaccionAdmin _admin;
-        private SeguridadAdmin _seguridadAdmin;
+        private SeguridadAdministrador _seguridadAdmin;
         private Notificador _notificador;
+        private readonly UsuarioAdministrador _usuarioAdmin;
 
-        public TransaccionController(SeguridadAdmin seguridadAdmin, Notificador notificador)
+        public TransaccionController(TransaccionAdmin transaccionAdmin, SeguridadAdministrador seguridadAdmin, Notificador notificador, UsuarioAdministrador usuarioAdmin)
         {
-            _admin = new TransaccionAdmin();
+            _admin = transaccionAdmin;
             _seguridadAdmin = seguridadAdmin;
             _notificador = notificador;
+            _usuarioAdmin = usuarioAdmin;
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> IniciarRetiro([FromBody] RetiroRequestDTO request)
+        #region Endpoints para Depósitos 
+        [HttpPost("deposito/paypal/iniciar")]
+        public async Task<IActionResult> IniciarDepositoPayPal([FromBody] DepositoPayPalRequest request)
         {
             try
             {
-                // Validar saldo suficiente
-                var usuarioAdmin = new UsuarioAdmin();
-                var usuario = usuarioAdmin.ReturnUsuarioById(request.IdUsuario);
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-                if (usuario.Saldo < request.Monto)
+                var usuario = _usuarioAdmin.ReturnUsuarioById(request.UsuarioId); // Ahora usa la dependencia inyectada
+                if (usuario == null)
+                    return NotFound("Usuario no encontrado");
+
+                // Resto del método igual...
+                var otp = await _seguridadAdmin.GenerateOTP(usuario.CorreoElectronico);
+
+                return Ok(new
                 {
-                    return BadRequest("Saldo insuficiente para realizar esta operación");
-                }
-
-                // Generar OTP
-                string otp = await _seguridadAdmin.GenerateOTP(usuario.CorreoElectronico);
-
-                // Retornar éxito - el frontend mostrará el formulario para ingresar OTP
-                return Ok(new { Message = "Se ha enviado un código de verificación a su correo electrónico" });
+                    Message = "Se ha enviado un OTP a su correo",
+                    NextStep = "confirmar_otp"
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500, $"Error interno: {ex.Message}");
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> ConfirmarRetiro([FromBody] ConfirmacionRetiroDTO request)
+        [HttpPost("deposito/paypal/confirmar")]
+        public async Task<IActionResult> ConfirmarDepositoPayPal([FromBody] ConfirmarDepositoRequest request)
         {
             try
             {
-                // Obtener datos del usuario
-                var usuarioAdmin = new UsuarioAdmin();
-                var usuario = usuarioAdmin.ReturnUsuarioById(request.IdUsuario);
+                // 1. Validar OTP
+                var usuario = _usuarioAdmin.ReturnUsuarioById(request.UsuarioId);
+                if (!_seguridadAdmin.Verify(usuario.CorreoElectronico, request.OTP))
+                    return BadRequest("OTP inválido o expirado");
 
-                // Verificar OTP
-                bool esValido = _seguridadAdmin.Verify(usuario.CorreoElectronico, request.OTP);
+                // 2. Procesar depósito con PayPal
+                var resultado = await _admin.ProcesarDepositoPayPal(
+                    request.UsuarioId,
+                    request.Monto,
+                    request.PayPalTransactionId);
 
-                if (!esValido)
+                if (!resultado.Exito)
+                    return BadRequest(resultado.Mensaje);
+
+                return Ok(new
                 {
-                    return BadRequest("Código OTP inválido o expirado");
-                }
-
-                // Procesar retiro
-                bool resultado = _admin.ProcesarRetiro(usuario.Id, request.Monto);
-
-                if (!resultado)
-                {
-                    return BadRequest("No se pudo procesar el retiro");
-                }
-
-                // Enviar notificación
-                await _notificador.EnviarNotificacionRetiro(usuario.CorreoElectronico, request.Monto);
-
-                return Ok(new { Message = "Retiro procesado exitosamente" });
+                    resultado.Exito,
+                    resultado.Mensaje,
+                    NuevoSaldo = usuario.Saldo
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500, $"Error interno: {ex.Message}");
             }
         }
+        #endregion
+
+        #region Endpoints para Retiros (RF20/RF21)
+        [HttpPost("retiro/solicitar")]
+        public async Task<IActionResult> SolicitarRetiro([FromBody] SolicitudRetiroRequest request)
+        {
+            try
+            {
+                // 1. Validar saldo suficiente (RF20)
+                if (!_admin.ValidarSaldoSuficiente(request.UsuarioId, request.Monto))
+                    return BadRequest("Saldo insuficiente para esta transacción");
+
+                // 2. Generar y enviar OTP (RF21)
+                var usuario = _usuarioAdmin.ReturnUsuarioById(request.UsuarioId);
+                var otp = await _seguridadAdmin.GenerateOTP(usuario.CorreoElectronico);
+
+                // 3. Guardar solicitud temporal 
+                // _transaccionAdmin.RegistrarSolicitudRetiro(...);
+
+                return Ok(new
+                {
+                    Message = "Se ha enviado un OTP a su correo electrónico",
+                    NextStep = "confirmar_retiro"
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error interno: {ex.Message}");
+            }
+        }
+
+        [HttpPost("retiro/confirmar")]
+        public async Task<IActionResult> ConfirmarRetiro([FromBody] ConfirmarRetiroRequest request)
+        {
+            try
+            {
+                // 1. Validar OTP
+                var usuario = _usuarioAdmin.ReturnUsuarioById(request.UsuarioId);
+                if (!_seguridadAdmin.Verify(usuario.CorreoElectronico, request.OTP))
+                    return BadRequest("OTP inválido o expirado");
+
+                // 2. Procesar retiro
+                var resultado = await _admin.ProcesarRetiroConOTP(
+                    request.UsuarioId,
+                    request.Monto,
+                    request.OTP);
+
+                if (!resultado.Exito)
+                    return BadRequest(resultado.Mensaje);
+
+                return Ok(new
+                {
+                    resultado.Exito,
+                    resultado.Mensaje,
+                    NuevoSaldo = usuario.Saldo
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error interno: {ex.Message}");
+            }
+        }
+        #endregion
+
 
         [HttpGet]
         public IActionResult ObtenerCargosExtra()

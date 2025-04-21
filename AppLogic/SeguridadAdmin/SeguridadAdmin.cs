@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace AppLogic.SeguridadAdmin
 {
-    public class SeguridadAdmin
+    public class SeguridadAdministrador
     {
         private readonly ConcurrentDictionary<string, (string Otp, DateTime Expiry)> _otpStore = new();
         private readonly Notificador _notificador;
         private readonly AwsConnector _awsConnector;
 
-        public SeguridadAdmin(Notificador notificador, AwsConnector awsConnector)
+        public SeguridadAdministrador(Notificador notificador, AwsConnector awsConnector)
         {
             _notificador = notificador;
             _awsConnector = awsConnector;

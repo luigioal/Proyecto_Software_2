@@ -42,7 +42,7 @@ namespace Proyecto_Software_2
             );
 
             // Registrar SeguridadAdmin
-            builder.Services.AddSingleton<AppLogic.SeguridadAdmin.SeguridadAdmin>();
+            builder.Services.AddSingleton<AppLogic.SeguridadAdmin.SeguridadAdministrador>();
 
             //CORS
             builder.Services.AddCors(options =>

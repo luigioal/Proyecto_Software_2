@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DTO.TransaccionDTO
 {
-    public class RetiroRequestDTO
+    public class SolicitudRetiroRequest
     {
-        public int IdUsuario { get; set; }
+        public int UsuarioId { get; set; }
         public double Monto { get; set; }
     }
 }

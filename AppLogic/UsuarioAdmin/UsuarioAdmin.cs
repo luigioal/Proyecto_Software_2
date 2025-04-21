@@ -8,11 +8,11 @@ using DTO.UsuarioDTO;
 
 namespace AppLogic.UsuarioAdmin
 {
-    public class UsuarioAdmin
+    public class UsuarioAdministrador
     {
         private UsuarioCrud _usuarioCrud;
 
-        public UsuarioAdmin()
+        public UsuarioAdministrador()
         {
             _usuarioCrud = new UsuarioCrud();
         }
